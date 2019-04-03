@@ -22,10 +22,6 @@ ul.addEventListener('click' , (e)=>{
         }
     }
 })
-window.onload = ()=>{
-    // For future use if wanted to add somefunctions
-    showTodo();
-}
 addForm.addEventListener('submit' , (e)=>{
     e.preventDefault();
     let value = addForm.querySelector('input').value;
@@ -37,6 +33,7 @@ addForm.addEventListener('submit' , (e)=>{
         'task':value,
         'completed':false
     };
+    addForm.querySelector('input').value = '';
     todosData.todoList.push(todoItem);
     window.localStorage.setItem('todos',JSON.stringify(todosData));
     showTodo();
