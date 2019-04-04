@@ -28,30 +28,35 @@ ul.addEventListener('click', (e) => {
 //Add Form Listener
 addForm.addEventListener('submit', (e) => {
     e.preventDefault();
-    if (typeof (Storage) !== "undefined") {
-        let value = addForm.querySelector('input').value;
-        console.log('Submitted', addForm.querySelector('input').value);
-        let todosData = window.localStorage.getItem('todos') ? JSON.parse(window.localStorage.getItem('todos')) : {
-            todoList: []
-        };
-        let todoItem = {
-            'task': value,
-            'completed': false
-        };
-        addForm.querySelector('input').value = '';
-        todosData.todoList.push(todoItem);
-        try {
-            window.localStorage.setItem('todos', JSON.stringify(todosData));
-        } catch (domException) {
-            if (domException.name === 'QuotaExceededError' || domException.name === 'NS_ERROR_DOM_QUOTA_REACHED') {
-                alert('Can\'t Add ,Please Delete Some task either App will crash.');
+    if(addForm.querySelector('input').value == ''){
+        showToast('Please Enter Text');
+    }else{
+        if (typeof (Storage) !== "undefined") {
+            let value = addForm.querySelector('input').value;
+            console.log('Submitted', addForm.querySelector('input').value);
+            let todosData = window.localStorage.getItem('todos') ? JSON.parse(window.localStorage.getItem('todos')) : {
+                todoList: []
+            };
+            let todoItem = {
+                'task': value,
+                'completed': false
+            };
+            addForm.querySelector('input').value = '';
+            todosData.todoList.push(todoItem);
+            try {
+                window.localStorage.setItem('todos', JSON.stringify(todosData));
+            } catch (domException) {
+                if (domException.name === 'QuotaExceededError' || domException.name === 'NS_ERROR_DOM_QUOTA_REACHED') {
+                    alert('Can\'t Add ,Please Delete Some task either App will crash.');
+                }
+    
             }
-
+            showTodo();
+        } else {
+            showToast('Sorry! No Web Storage Support');
         }
-        showTodo();
-    } else {
-        showToast('Sorry! No Web Storage Support');
     }
+    
 })
 
 // search Form
