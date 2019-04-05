@@ -80,7 +80,7 @@ main.addEventListener('click', (e) => {
     if (e.target.classList.contains('del-btn')) {
         if (confirm('Are you sure?')) {
             let todos = JSON.parse(window.localStorage.getItem('todos'));
-            let index = e.target.parentNode.parentNode.dataset.arrayIndex;
+            let index = e.target.parentNode.parentNode.parentNode.dataset.arrayIndex;
             todos.todoList.splice(index, 1);
             window.localStorage.setItem('todos', JSON.stringify(todos));
             showTodo();
