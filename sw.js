@@ -3,7 +3,7 @@ var cacheName =  'todoApp';
 var filesToCache = [
     '/',
     '/index.html',
-    '/css/style.css',
+    '/css/style.min.css',
     '/js/main.js'
 ];
 

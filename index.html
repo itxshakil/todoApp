@@ -1,79 +1,120 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title>Todo App</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#33333" />
+    <meta
+      name="description"
+      content="Name Game is a minimal Todo App that you can use to plan your daily task and is developed with Javascript by Shakil Alam"
+    />
+    <meta name="title" content="ToDo App" />
+    <meta
+      name="keywords"
+      content="todo App , task , todo offline , todo pwa, shakil alam ,todo appp , javascript project"
+    />
+    <meta name="subject" content="ToDo App" />
+    <meta name="language" content="en" />
+    <meta name="rating" content="General" />
+    <meta name="url" content="http://todooffline.netlify.com" />
+    <meta name="identifier-URL" content="http://todooffline.netlify.com" />
+    <meta name="owner" content="Shakil Alam" />
+    <meta name="author" content="Shakil Alam , itxshakiil@gmail.com" />
+    <meta name="og:title" content="ToDo App" />
+    <meta name="og:url" content="http://todooffline.netlify.com" />
+    <meta name="og:url" content="http://todooffline.netlify.com" />
+    <meta name="og:url" content="http:todooffline.netlify.com/" />
+    <meta name="og:site_name" content="ToDo App" />
+    <meta
+      name="og:description"
+      content="Name Game is a minimal Todo App that you can use to plan your daily task and is developed with Javascript by Shakil Alam"
+    />
+    <meta name="og:email" content="itxshakiil@gamil.com" />
+    <meta name="og:phone_number" content="+918802559102" />
+    <meta name="og:country-name" content="India" />
+    <meta name="theme-color" content="dodgerblue" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-    <meta name="apple-mobile-web-app-title" content="Movie Guru" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="dodgerblue" />
+    <meta name="apple-mobile-web-app-title" content="To Do App" />
     <meta name="msapplication-TitleImage" content="images/logo-144.png" />
-    <meta name="msapplication-TitleColor" content="#ffffff" />
-    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
-    <link rel="apple-touch-icon" href="images/logo-152.png">
-    <link rel="manifest" href="/manifest.json">
-    <link rel="stylesheet" href="css/style.css">
-    <style>
-        body {
-            display: flex;
-            min-height: 100vh;
-            flex-direction: column;
-        }
-    </style>
+    <meta name="msapplication-TitleColor" content="dodgerblue" />
+    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
+    <link rel="apple-touch-icon" href="images/logo-152.png" />
+    <link rel="manifest" href="/manifest.json" />
+    <link rel="stylesheet" href="css/style.min.css" />
     <!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-137582152-1"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=UA-137582152-1"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
 
-  gtag('config', 'UA-137582152-1');
-</script>
+      gtag("config", "UA-137582152-1");
+    </script>
+  </head>
 
-</head>
-
-<body>
+  <body>
     <header class="header">
-        <h3 class="brand-logo">To Do App</h3>
-        <div class="search-form-wrapper">
-            <form action="" id="search">
-                <input type="text" id="search" name="search" placeholder="Search..." />
-            </form>
-        </div>
+      <h1 class="brand-logo">To Do App</h1>
+      <div class="search-form-wrapper">
+        <form action="" id="search">
+          <input
+            type="text"
+            id="search"
+            title="Enter tasks to search"
+            name="search"
+            placeholder="Search..."
+          />
+        </form>
+      </div>
     </header>
     <main>
-        <div class="container">
-            <div class="todos">
-                <h3 style="text-align:center;">Task To Do</h3>
-                <ul id="tasks-list">
-                </ul>
+      <div class="container">
+        <div class="todos">
+          <h3 class="todos-title">Task To Do</h3>
+          <div class="list-header">
+            <div class="item">Todo Item</div>
+            <div class="right">
+              <span>Completed</span>
+              <span onclick="Storage.clearAll()">Delete</span>
             </div>
-            <div class="add-form">
-                <form id="add-form" action="">
-                    <input type="text" name="todo" id="add-input" placeholder="Add Todo...">
-                    <input type="submit" value="Add">
-                </form>
-            </div>
+          </div>
+          <ul id="tasks-list"></ul>
         </div>
+        <div class="add-form">
+          <form id="add-form" action="">
+            <input
+              type="text"
+              name="todo"
+              id="add-input"
+              placeholder="Add Task..."
+            />
+            <input type="submit" value="Add" />
+          </form>
+        </div>
+      </div>
     </main>
     <footer class="page-footer grey  darken-4 center">
-        <div class="white-text text-darken-5">Designed with <span class="red-text text-darken-4">♥</span> By <a
-                class="white-text" href="mailto:itxshakiil@gmail.com">Shakil Alam</a></div>
+      <div class="white-text text-darken-5">
+        Designed with <span class="red-text text-darken-4">♥</span> By
+        <a class="white-text" href="mailto:itxshakiil@gmail.com">Shakil Alam</a>
+      </div>
     </footer>
     <div id="snackbar"></div>
     <script src="js/main.js"></script>
     <script>
-        window.onload = () => {
-            'use strict';
-            if ('serviceWorker' in navigator) {
-                navigator.serviceWorker.register('./sw.js');
-            }
-            showTodo();
+      window.onload = () => {
+        "use strict";
+        if ("serviceWorker" in navigator) {
+          navigator.serviceWorker.register("./sw.js");
         }
+      };
     </script>
-</body>
-
+  </body>
 </html>

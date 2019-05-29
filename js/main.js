@@ -1,143 +1,152 @@
-const main = document.querySelector('main');
-const ul = document.querySelector('#tasks-list');
+const ul = document.querySelector("#tasks-list");
 const searchForm = document.forms[0];
 const addForm = document.forms[1];
-const search = document.querySelector('#search');
+const search = document.querySelector("#search");
+let todos = [];
 
-// Checkbox Handler
-ul.addEventListener('click', (e) => {
-    if (e.target.tagName.toUpperCase() === 'INPUT') {
-        let checkbox = e.target;
-        let parentli = e.target.parentNode.parentNode.parentNode;
-        if (checkbox.checked) {
-            let todos = JSON.parse(window.localStorage.getItem('todos'));
-            let parentli = e.target.parentNode.parentNode.parentNode;
-            let index = parentli.dataset.arrayIndex;
-            todos.todoList[index].completed = true;
-            parentli.classList.add('completed');
-            window.localStorage.setItem('todos', JSON.stringify(todos));
-        } else {
-            let todos = JSON.parse(window.localStorage.getItem('todos'));
-            let index = parentli.dataset.arrayIndex;
-            todos.todoList[index].completed = false;
-            parentli.classList.remove('completed');
-            window.localStorage.setItem('todos', JSON.stringify(todos));
-        }
+ul.addEventListener("click", event => {
+  if (event.target.classList.contains("del-btn")) {
+    if (confirm("Are you sure to Delete?")) {
+      let todos = Storage.getTodos();
+      let index = event.target.parentNode.parentNode.dataset.arrayIndex;
+      todos.todoList.splice(index, 1);
+      Storage.setItem(todos);
+      UI.showTodo();
     }
-})
-//Add Form Listener
-addForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    if(addForm.querySelector('input').value == ''){
-        showToast('Please Enter Text');
-    }else{
-        if (typeof (Storage) !== "undefined") {
-            let value = addForm.querySelector('input').value;
-            console.log('Submitted', addForm.querySelector('input').value);
-            let todosData = window.localStorage.getItem('todos') ? JSON.parse(window.localStorage.getItem('todos')) : {
-                todoList: []
-            };
-            let todoItem = {
-                'task': value,
-                'completed': false
-            };
-            addForm.querySelector('input').value = '';
-            todosData.todoList.push(todoItem);
-            try {
-                window.localStorage.setItem('todos', JSON.stringify(todosData));
-            } catch (domException) {
-                if (domException.name === 'QuotaExceededError' || domException.name === 'NS_ERROR_DOM_QUOTA_REACHED') {
-                    alert('Can\'t Add ,Please Delete Some task either App will crash.');
-                }
-    
-            }
-            showTodo();
-        } else {
-            showToast('Sorry! No Web Storage Support');
-        }
+  } else if (event.target.tagName.toUpperCase() === "INPUT") {
+    let checkbox = event.target;
+    let list = checkbox.parentNode.parentNode;
+    let index = list.dataset.arrayIndex;
+    if (checkbox.checked) {
+      let todos = Storage.getTodos();
+      todos.todoList[index].completed = true;
+      Storage.setItem(todos);
+      list.classList.add("completed");
+    } else {
+      let todos = Storage.getTodos();
+      todos.todoList[index].completed = false;
+      Storage.setItem(todos);
+      list.classList.remove("completed");
     }
-    
-})
-
-// search Form
-search.addEventListener('keyup', (e) => {
-    let text = e.target.value.toLowerCase();
-    let lists = document.getElementsByTagName('li');
-    // Convert HTML Collection to Array .Array.from
-    Array.from(lists).forEach((item) => {
-        let task = item.firstChild.textContent;
-        if (task.toLowerCase().indexOf(text) != -1) {
-            item.style.display = 'block';
-
-        } else {
-            item.style.display = 'none';
-        }
-    })
-})
-
-// delete Event
-main.addEventListener('click', (e) => {
-    if (e.target.classList.contains('del-btn')) {
-        if (confirm('Are you sure?')) {
-            let todos = JSON.parse(window.localStorage.getItem('todos'));
-            let index = e.target.parentNode.parentNode.parentNode.dataset.arrayIndex;
-            todos.todoList.splice(index, 1);
-            window.localStorage.setItem('todos', JSON.stringify(todos));
-            showTodo();
-        }
+  }
+});
+addForm.addEventListener("submit", event => {
+  event.preventDefault();
+  if (addForm.querySelector("input").value == "") {
+    showToast("Please Enter Text");
+  } else {
+    if (Storage.isSupported()) {
+      let value = addForm.querySelector("input").value;
+      Storage.addTask(value);
+      addForm.querySelector("input").value = "";
     }
+  }
 });
 
-function showTodo() {
-    // Clear Prevoius Screen
+class UI {
+  static showTodo() {
+    const length = todos.length;
+    // Clear Previous Screen
     while (ul.firstChild) {
-        ul.removeChild(ul.firstChild);
+      ul.removeChild(ul.firstChild);
     }
-    let data = JSON.parse(window.localStorage.getItem('todos'));
-    const length = data.todoList.length;
     if (length > 0) {
-        for (let i = 0; i < length; i++) {
-            let liItem = document.createElement('li');
-            liItem.classList.add('todo-item');
-            liItem.setAttribute('data-array-index', i);
-            let tasks = document.createElement('span');
-            let taskText = document.createTextNode(data.todoList[i].task);
-            tasks.appendChild(taskText);
-            let clearfix = document.createElement('span');
-            clearfix.classList.add('clearfix');
-            let floatItem = document.createElement('span');
-            floatItem.classList.add('float-right');
-            let checkbox = document.createElement('input');
-            checkbox.setAttribute('type', 'checkbox');
-            if (data.todoList[i].completed) {
-                checkbox.checked = 'true';
-                liItem.classList.add('completed');
-            }
-            let button = document.createElement('button');
-            button.classList.add('del-btn');
-            let buttonText = document.createTextNode('x');
-            button.innerText = 'x';
-            floatItem.appendChild(checkbox);
-            floatItem.appendChild(button);
-            liItem.appendChild(tasks);
-            clearfix.appendChild(floatItem);
-            liItem.appendChild(clearfix);
-            ul.appendChild(liItem);
+      for (let index = 0; index < length; index++) {
+        let list = document.createElement("li");
+        list.classList.add("todo-item");
+        if (todos[index].completed) {
+          list.classList.add("completed");
         }
-        if (length > 10000) {
-            showToast('Hey User , You can Delete unnecessary Todos for smooth use.');
-        }
+        list.setAttribute("data-array-index", index);
+        list.innerHTML = `<div>${todos[index].task}</div>
+              <div class="right">
+                <input type="checkbox" ${
+                  todos[index].completed ? "checked" : ""
+                } />
+                <button class="del-btn">x</button>
+              </div>`;
+        ul.appendChild(list);
+      }
+      if (length > 1000) {
+        showToast(
+          "Hey User , You can Delete unnecessary Todos for smooth use."
+        );
+      }
     } else {
-        document.getElementById('tasks-list').innerHTML = '<h3 style="text-align:center;">No Task</h3>'
+      ul.innerHTML = '<strong class="todo-item">No Task Found.</strong>';
+    }
+  }
+  static SetAPP() {
+    ToDo.getTodos().then(UI.showTodo());
+  }
+}
+class Storage {
+  static setItem(item) {
+    try {
+      localStorage.setItem("todos", JSON.stringify(item));
+      ToDo.getTodos();
+    } catch (error) {
+      showToast("Unable To add");
+    }
+  }
+  static getTodos() {
+    if (localStorage.getItem("todos")) {
+      let data = localStorage.getItem("todos");
+      return JSON.parse(data);
+    } else {
+      Storage.setItem({ todoList: [] });
+      showToast('Please add Task.');
+      this.getTodos();
+    }
+  }
+  static isSupported() {
+    if (typeof Storage === "undefined") {
+      showToast("Sorry! Your Browser Don't Support Web Storage. ");
+      return false;
+    }
+    return true;
+  }
+  static addTask(task) {
+    let data = this.getTodos();
+    data.todoList.push({ task: task, completed: false });
+    Storage.setItem(data);
+    UI.SetAPP();
+    }
+    static clearAll() {
+        Storage.setItem({ todoList: [] });
+        UI.showTodo();
     }
 }
+class ToDo {
+  static async getTodos() {
+    todos = Storage.getTodos().todoList;
+  }
+}
+document.addEventListener("DOMContentLoaded", () => {
+  UI.SetAPP();
+});
+
+// search Form
+search.addEventListener("keyup", e => {
+  let text = e.target.value.toLowerCase();
+  let lists = document.getElementsByTagName("li");
+  // Convert HTML Collection to Array .Array.from
+  Array.from(lists).forEach(item => {
+    let task = item.firstChild.textContent;
+    if (task.toLowerCase().indexOf(text) != -1) {
+      item.classList.remove("hidden");
+    } else {
+      item.classList.add("hidden");
+    }
+  });
+});
 
 function showToast(notification) {
-    // Get the snackbar DIV
-    var toast = document.getElementById("snackbar");
-    toast.innerHTML = notification;
-    toast.className = "show";
-    setTimeout(function () {
-        toast.className = toast.className.replace("show", "");
-    }, 3000);
+  // Get the snackbar DIV
+  var toast = document.getElementById("snackbar");
+  toast.innerHTML = notification;
+  toast.className = "show";
+  setTimeout(function() {
+    toast.className = toast.className.replace("show", "");
+  }, 3000);
 }
