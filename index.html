@@ -63,7 +63,7 @@
     <header class="header">
       <h1 class="brand-logo">To Do App</h1>
       <div class="search-form-wrapper">
-        <form action="" id="search">
+        <form action="" id="searchForm">
           <input
             type="text"
             id="search"
@@ -82,10 +82,14 @@
             <div class="item">Todo Item</div>
             <div class="right">
               <span>Completed</span>
-              <span onclick="Storage.clearAll()">Delete</span>
+              <span>Remove</span>
             </div>
           </div>
           <ul id="tasks-list"></ul>
+          <div class="footer">
+            <button onclick="clearCompleted()">Clear completed</button>
+            <button onclick="markAsCompleted()">Mark all as completed</button>
+          </div>
         </div>
         <div class="add-form">
           <form id="add-form" action="">

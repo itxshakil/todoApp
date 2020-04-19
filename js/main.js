@@ -61,8 +61,8 @@ class UI {
         list.innerHTML = `<div>${todos[index].task}</div>
               <div class="right">
                 <input type="checkbox" ${
-                  todos[index].completed ? "checked" : ""
-                } />
+          todos[index].completed ? "checked" : ""
+          } />
                 <button class="del-btn">x</button>
               </div>`;
         ul.appendChild(list);
@@ -111,15 +111,19 @@ class Storage {
     data.todoList.push({ task: task, completed: false });
     Storage.setItem(data);
     UI.SetAPP();
-    }
-    static clearAll() {
-        Storage.setItem({ todoList: [] });
-        UI.showTodo();
-    }
+  }
+  static clearAll() {
+    Storage.setItem({ todoList: [] });
+    UI.showTodo();
+  }
 }
 class ToDo {
   static async getTodos() {
     todos = Storage.getTodos().todoList;
+  }
+
+  static markAsCompleted() {
+    console.log(todos = Storage.getTodos().todoList);
   }
 }
 document.addEventListener("DOMContentLoaded", () => {
@@ -146,7 +150,27 @@ function showToast(notification) {
   var toast = document.getElementById("snackbar");
   toast.innerHTML = notification;
   toast.className = "show";
-  setTimeout(function() {
+  setTimeout(function () {
     toast.className = toast.className.replace("show", "");
   }, 3000);
+}
+
+function markAsCompleted() {
+  let data = Storage.getTodos();
+  data.todoList.forEach(function (item) {
+    item.completed = true;
+  })
+
+  Storage.setItem(data);
+  UI.showTodo();
+}
+
+function clearCompleted() {
+  let data = Storage.getTodos();
+  data.todoList = data.todoList.filter(function (item) {
+    return item.completed == false;
+  })
+  Storage.setItem(data);
+
+  UI.showTodo();
 }
