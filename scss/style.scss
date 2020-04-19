@@ -10,6 +10,7 @@ body {
   min-height: 100vh;
   flex-direction: column;
   justify-content: space-between;
+  overflow-x: hidden;
 }
 footer {
   justify-self: flex-end;
@@ -122,8 +123,9 @@ li.completed{
   background: crimson;
   border: none;
   border-radius: 3px;
-  padding: 0px 10px;
+  padding: 0px 8px;
   margin-left: 10px;
+  padding-bottom:2px;
 }
 .footer{
   display:flex;
