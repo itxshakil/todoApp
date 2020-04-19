@@ -4,14 +4,17 @@ const addForm = document.forms[1];
 const search = document.querySelector("#search");
 let todos = [];
 
+function getTodosIndex(target) {
+  return target.parentNode.parentNode.dataset.arrayIndex
+}
+
 ul.addEventListener("click", event => {
   if (event.target.classList.contains("del-btn")) {
     if (confirm("Are you sure to Delete?")) {
       let todos = Storage.getTodos();
-      let index = event.target.parentNode.parentNode.dataset.arrayIndex;
+      let index = getTodosIndex(event.target);
       todos.todoList.splice(index, 1);
       Storage.setItem(todos);
-      UI.showTodo();
     }
   } else if (event.target.tagName.toUpperCase() === "INPUT") {
     let checkbox = event.target;
@@ -88,6 +91,7 @@ class Storage {
     } catch (error) {
       showToast("Unable To add");
     }
+    UI.showTodo();
   }
   static getTodos() {
     if (localStorage.getItem("todos")) {
@@ -114,16 +118,11 @@ class Storage {
   }
   static clearAll() {
     Storage.setItem({ todoList: [] });
-    UI.showTodo();
   }
 }
 class ToDo {
   static async getTodos() {
     todos = Storage.getTodos().todoList;
-  }
-
-  static markAsCompleted() {
-    console.log(todos = Storage.getTodos().todoList);
   }
 }
 document.addEventListener("DOMContentLoaded", () => {
@@ -162,7 +161,6 @@ function markAsCompleted() {
   })
 
   Storage.setItem(data);
-  UI.showTodo();
 }
 
 function clearCompleted() {
@@ -171,6 +169,4 @@ function clearCompleted() {
     return item.completed == false;
   })
   Storage.setItem(data);
-
-  UI.showTodo();
 }
