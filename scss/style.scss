@@ -110,9 +110,12 @@ input[type="text"] {
 .todo-item:last-child {
   border-bottom: none;
 }
-li.completed > div:first-child {
-  text-decoration: line-through;
-}
+li.completed{
+  filter:opacity(70%);
+  div:first-child {
+    text-decoration: line-through;
+  }
+} 
 .del-btn {
   color: whitesmoke;
   background: crimson;
