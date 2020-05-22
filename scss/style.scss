@@ -1,4 +1,5 @@
 $color: #17a2b8;
+$dark-color: #494949;
 * {
   margin: 0;
   padding: 0;
@@ -91,14 +92,14 @@ input[type="text"] {
   list-style: none;
   border: 1px solid $color;
 }
-.todo-item{
-  display:flex;
+.todo-item {
+  display: flex;
   justify-content: space-between;
   align-items: baseline;
-  padding:10px;
-  border:1px solid $color;
-  .right{
-    display:flex;
+  padding: 10px;
+  border: 1px solid $color;
+  .right {
+    display: flex;
     align-items: baseline;
   }
 }
@@ -116,12 +117,12 @@ input[type="text"] {
 .todo-item:last-child {
   border-bottom: none;
 }
-li.completed{
-  filter:opacity(70%);
+li.completed {
+  filter: opacity(70%);
   div:first-child {
     text-decoration: line-through;
   }
-} 
+}
 .del-btn {
   color: whitesmoke;
   background: crimson;
@@ -129,17 +130,18 @@ li.completed{
   border-radius: 3px;
   padding: 0px 8px;
   margin-left: 10px;
-  padding-bottom:2px;
+  padding-bottom: 2px;
 }
-.footer{
-  display:flex;
+.footer {
+  margin-top: 2px;
+  display: flex;
   justify-content: space-between;
-  button{
-    padding:.3rem .2rem;
-    border:none;
-    border-radius:2px;
-    background:whitesmoke;
-    color:lighten($color: $color, $amount: 10);
+  button {
+    padding: 0.3rem 0.2rem;
+    border: none;
+    border-radius: 4px;
+    background: whitesmoke;
+    color: lighten($color: $color, $amount: 10);
   }
 }
 #add-form {
@@ -221,5 +223,14 @@ footer {
   to {
     bottom: 0;
     opacity: 0;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  main {
+    background: $dark-color;
+  }
+  .footer > button {
+    background: darken($color: $dark-color, $amount: 10);
   }
 }
