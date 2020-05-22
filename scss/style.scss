@@ -91,12 +91,16 @@ input[type="text"] {
   list-style: none;
   border: 1px solid $color;
 }
-.todo-item {
-  border-bottom: 1px solid $color;
-  padding: 10px;
-  display: flex;
+.todo-item{
+  display:flex;
   justify-content: space-between;
-  align-items: flex-end;
+  align-items: baseline;
+  padding:10px;
+  border:1px solid $color;
+  .right{
+    display:flex;
+    align-items: baseline;
+  }
 }
 .todo-item:last-child {
   -webkit-animation: fadein 0.5s;
