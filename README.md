@@ -5,8 +5,8 @@
 - *Light Weight*
 - *Installable*(PWA)
 
->Demo : [https://todoofflinenetlify.com](https://todoofflinenetlify.com "ToDo App")
+>Demo : [https://todoofflinenetlify.app](https://todoofflinenetlify.app "ToDo App")
 
 ## Author
 
-- **[Shakil Alam](https://github.com/itxshakiil)**
+- **[Shakil Alam](https://github.com/itxshakil)**
