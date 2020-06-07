@@ -87,8 +87,8 @@
           </div>
           <ul id="tasks-list"></ul>
           <div class="footer">
-            <button onclick="clearCompleted()">Clear completed</button>
-            <button onclick="markAsCompleted()">Mark all as completed</button>
+            <button id="clearCompleted">Clear completed</button>
+            <button id="markAsCompleted">Mark all as completed</button>
           </div>
         </div>
         <div class="add-form">
@@ -112,7 +112,7 @@
       </div>
     </footer>
     <div id="snackbar"></div>
-    <script src="js/main.js"></script>
+    <script src="js/app.js" type="module"></script>
     <script>
       window.onload = () => {
         "use strict";
