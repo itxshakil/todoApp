@@ -1,10 +1,14 @@
-var cacheName =  'todoApp-v2';
+var cacheName =  'todoApp-v3';
 // Change main js file name
 var filesToCache = [
     '/',
     '/index.html',
     '/css/style.min.css',
-    '/js/main.js',
+    '/js/app.js',
+    '/js/classes/ListTemplate.js',
+    '/js/classes/Storage.js',
+    '/js/classes/Task.js',
+    '/js/classes/TaskManager.js',
     '/sw.js'
 ];
 
