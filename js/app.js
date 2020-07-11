@@ -17,7 +17,7 @@ addForm.addEventListener("submit", event => {
     }
     else {
         let tasks = taskManager.addTask(new Task(value));
-        renderTask(tasks);
+        listRenderer.display(tasks);
         input.value = "";
     }
 });
@@ -44,7 +44,7 @@ ul.addEventListener("click", event => {
             let list = delBtnDiv.parentNode;
             let index = parseInt(list.dataset.arrayIndex);
             let tasks = taskManager.removeTask(index);
-            renderTask(tasks);
+            listRenderer.display(tasks);
         }
     }
 });
@@ -65,27 +65,12 @@ search.addEventListener("keyup", event => {
 });
 markAsCompletedButton.addEventListener("click", event => {
     let tasks = taskManager.markAllAsCompleted();
-    renderTask(tasks);
+    listRenderer.display(tasks);
 });
 clearButton.addEventListener("click", event => {
     let tasks = taskManager.clearCompleted();
-    renderTask(tasks);
+    listRenderer.display(tasks);
 });
-function renderTask(tasks) {
-    const length = tasks.length;
-    listRenderer.clear();
-    if (length) {
-        tasks.forEach((task, index) => {
-            listRenderer.render(task, index.toString());
-        });
-    }
-    else {
-        ul.innerHTML = '<strong class="todo-item">No Task Found.</strong>';
-    }
-    if (length > 1000) {
-        alert("Hey User , You can Delete unnecessary Todos for smooth use.");
-    }
-}
 document.addEventListener("DOMContentLoaded", () => {
-    renderTask(taskManager.getTodos());
+    listRenderer.display(taskManager.getTodos());
 });
