@@ -1,4 +1,4 @@
-# Name Game App
+# todoApp
 ## A Basic To Do App made with Javascript thats
 - *Fully Work Offline* (PWA)
 - *Minimal UI*
