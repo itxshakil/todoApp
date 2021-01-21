@@ -35,5 +35,5 @@
     "start_url" : "/index.html",
     "display" : "standalone",
     "background_color" : "#fff",
-    "theme_color" : "cyan"
+    "theme_color" : "#17a2b8"
 }
