@@ -46,13 +46,13 @@ h1.brand-logo {
 }
 
 input[type="submit"] {
-  margin-left: 0.3rem;
   border: none;
   outline: none;
   background: $color;
   color: whitesmoke;
   padding: 0.2rem 1.2rem;
   border-radius: 999px;
+  transform:scaleY(.9);
 }
 input[type="text"] {
   display: inline-block;
