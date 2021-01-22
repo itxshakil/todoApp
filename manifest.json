@@ -32,7 +32,8 @@
             "type" : "image/png"
         }],
     "lang" : "en-US",
-    "start_url" : "/index.html",
+    "start_url" : "/index.html?source=pwa",
+    "scope" : "/todo/",
     "display" : "standalone",
     "background_color" : "#fff",
     "theme_color" : "#17a2b8"
