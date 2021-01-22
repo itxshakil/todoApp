@@ -5,7 +5,7 @@
 - *Light Weight*
 - *Installable*(PWA)
 
->Demo : [https://todooffline.netlify.app](https://todooffline.netlify.app "ToDo App")
+>Demo : [https://shakiltech.com/todo/](https://shakiltech.com/todo/ "ToDo App")
 
 ## Author
 
