@@ -1,4 +1,4 @@
-$color: #17a2b8;
+$color: #20cfeb;
 $dark-color: #494949;
 * {
   margin: 0;
@@ -52,7 +52,7 @@ input[type="submit"] {
   background: $color;
   color: whitesmoke;
   padding: 0.2rem 1.2rem;
-  border-radius:999px;
+  border-radius: 999px;
 }
 input[type="text"] {
   display: inline-block;
@@ -64,7 +64,7 @@ input[type="text"] {
   max-width: 360px;
   text-align: center;
   border-radius: 3px;
-  border-radius:999px;
+  border-radius: 999px;
 }
 
 .todos {
