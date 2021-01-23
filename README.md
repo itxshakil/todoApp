@@ -1,5 +1,5 @@
 # [todoApp](https://shakiltech.com/todo/ "ToDo App")
-## A Basic To Do App made with Javascript thats
+## A Basic To Do App made with TypeScript thats
 - *Fully Work Offline* (PWA)
 - *Minimal UI*
 - *Light Weight*
