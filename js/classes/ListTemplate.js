@@ -5,7 +5,6 @@ export class ListTemplate {
     render(item, index) {
         const li = document.createElement('li');
         li.classList.add('todo-item');
-        li.classList.add('slide-in');
         if (item.completed) {
             li.classList.add('completed');
         }

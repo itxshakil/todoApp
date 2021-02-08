@@ -118,11 +118,8 @@ input[type="text"] {
 .todo-item.hidden {
   display: none;
 }
-.todo-item.slide-in{
+.todo-item:last-of-type{
  animation: slide-in-left 0.5s;
-}
-.todo-item.slide-out{
- animation: slide-out-left 0.5s;
 }
 .todo-item > div {
   font-weight: 600;
