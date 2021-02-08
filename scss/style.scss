@@ -118,6 +118,12 @@ input[type="text"] {
 .todo-item.hidden {
   display: none;
 }
+.todo-item.slide-in{
+ animation: slide-in-left 0.5s;
+}
+.todo-item.slide-out{
+ animation: slide-out-left 0.5s;
+}
 .todo-item > div {
   font-weight: 600;
   letter-spacing: 0.02rem;
@@ -230,6 +236,22 @@ footer {
   to {
     bottom: 0;
     opacity: 0;
+  }
+}
+@keyframes slide-in-left {
+  from {
+    transform: translateX(-100vw);
+  }
+  to {
+    transform: translateX(0px);
+  }
+}
+@keyframes slide-out-left {
+  from {
+    transform: translateX(0px);
+  }
+  to {
+    transform: translateX(-100px);
   }
 }
 
