@@ -1,4 +1,4 @@
-var cacheName =  'todoApp-v3';
+var cacheName =  'todoApp-v4';
 // Change main js file name
 var filesToCache = [
     '/todo/',
