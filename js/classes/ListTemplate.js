@@ -15,13 +15,23 @@ export class ListTemplate {
     display(tasks) {
         const length = tasks.length;
         this.clear();
+        let uncompletedTask = 0;
         if (length) {
             tasks.forEach((task, index) => {
                 this.render(task, index.toString());
+                if (!task.completed) {
+                    uncompletedTask++;
+                }
             });
         }
         else {
             this.container.innerHTML = '<strong class="todo-item">No Task Found.</strong>';
+        }
+        if (navigator.setAppBadge) {
+            navigator.setAppBadge(uncompletedTask);
+        }
+        else if (navigator.setExperimentalAppBadge) {
+            navigator.setExperimentalAppBadge(uncompletedTask);
         }
         if (length > 1000) {
             alert("Hey User , You can Delete unnecessary Todos for smooth use.");
@@ -30,6 +40,12 @@ export class ListTemplate {
     clear() {
         while (this.container.firstChild) {
             this.container.removeChild(this.container.firstChild);
+        }
+        if (navigator.clearAppBadge) {
+            navigator.clearAppBadge();
+        }
+        else if (navigator.clearExperimentalAppBadge) {
+            navigator.clearExperimentalAppBadge();
         }
     }
 }
