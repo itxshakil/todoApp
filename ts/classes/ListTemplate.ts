@@ -3,7 +3,7 @@ import { Task } from "./Task.js";
 export class ListTemplate {
   constructor(private container: HTMLUListElement) { }
 
-  render(item: Task, index: string) {
+  render(item: Task, index: string, length: number) {
     const li = document.createElement('li');
 
     li.classList.add('todo-item');
@@ -13,6 +13,7 @@ export class ListTemplate {
     }
 
     li.setAttribute('data-array-index', index);
+    li.style.animationDuration = `${(1 / length) * parseInt(index)}s`;
 
     li.innerHTML = item.format();
 
@@ -27,7 +28,7 @@ export class ListTemplate {
     let uncompletedTask = 0;
     if (length) {
       tasks.forEach((task, index) => {
-        this.render(task, index.toString());
+        this.render(task, index.toString(), length);
         if (!task.completed) {
           uncompletedTask++;
         }

@@ -2,13 +2,14 @@ export class ListTemplate {
     constructor(container) {
         this.container = container;
     }
-    render(item, index) {
+    render(item, index, length) {
         const li = document.createElement('li');
         li.classList.add('todo-item');
         if (item.completed) {
             li.classList.add('completed');
         }
         li.setAttribute('data-array-index', index);
+        li.style.animationDuration = `${(1 / length) * parseInt(index)}s`;
         li.innerHTML = item.format();
         this.container.appendChild(li);
     }
@@ -18,7 +19,7 @@ export class ListTemplate {
         let uncompletedTask = 0;
         if (length) {
             tasks.forEach((task, index) => {
-                this.render(task, index.toString());
+                this.render(task, index.toString(), length);
                 if (!task.completed) {
                     uncompletedTask++;
                 }

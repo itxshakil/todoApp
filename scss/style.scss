@@ -118,8 +118,8 @@ input[type="text"] {
 .todo-item.hidden {
   display: none;
 }
-.todo-item:last-of-type{
- animation: slide-in-left 0.5s;
+.todo-item{
+  animation: slide-in-left 0.5s;
 }
 .todo-item > div {
   font-weight: 600;
@@ -152,6 +152,27 @@ li.completed {
     color: lighten($color: $color, $amount: 10);
   }
 }
+footer {
+  .footer-links {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+  }
+}
+
+.faqs {
+  text-align: left;
+  .faq {
+    margin: 1rem 0.3rem;
+    h3 {
+      font-weight: bold;
+    }
+    p {
+      margin-left: 0.5rem;
+    }
+  }
+}
+
 #add-form {
   display: flex;
   justify-content: center;
