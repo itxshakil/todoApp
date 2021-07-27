@@ -3,6 +3,7 @@ var cacheName =  'todoApp-v4';
 var filesToCache = [
     '/',
     '/index.html',
+    'index.html?source=pwa',
     '/css/style.min.css',
     '/js/app.js',
     '/js/classes/ListTemplate.js',
