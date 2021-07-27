@@ -34,8 +34,8 @@
     }
   ],
   "lang": "en-US",
-  "start_url": "/todo/index.html?source=pwa",
-  "scope": "/todo/",
+  "start_url": "/index.html?source=pwa",
+  "scope": "/",
   "display": "standalone",
   "background_color": "#fff",
   "theme_color": "#20cfeb"
