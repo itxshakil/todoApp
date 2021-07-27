@@ -1,15 +1,15 @@
 var cacheName =  'todoApp-v4';
 // Change main js file name
 var filesToCache = [
-    '/todo/',
-    '/todo/index.html',
-    '/todo/css/style.min.css',
-    '/todo/js/app.js',
-    '/todo/js/classes/ListTemplate.js',
-    '/todo/js/classes/Storage.js',
-    '/todo/js/classes/Task.js',
-    '/todo/js/classes/TaskManager.js',
-    '/todo/sw.js'
+    '/',
+    '/index.html',
+    '/css/style.min.css',
+    '/js/app.js',
+    '/js/classes/ListTemplate.js',
+    '/js/classes/Storage.js',
+    '/js/classes/Task.js',
+    '/js/classes/TaskManager.js',
+    '/sw.js'
 ];
 
 // Start the service worker and cache all of the app's content
