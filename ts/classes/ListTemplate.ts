@@ -35,6 +35,7 @@ export class ListTemplate {
       });
     } else {
       this.container.innerHTML = '<strong class="todo-item">No Task Found.</strong>';
+      this.container.classList.add('no-task')
     }
 
     if (navigator.setAppBadge) {

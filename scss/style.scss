@@ -180,6 +180,10 @@ li.completed {
   }
 }
 
+.no-task+.footer>button {
+  display: none;
+}
+
 footer {
   .footer-links {
     display: flex;
