@@ -1,11 +1,13 @@
 $color: #20cfeb;
 $dark-color: #494949;
+
 * {
   margin: 0;
   padding: 0;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   box-sizing: border-box;
 }
+
 body {
   display: flex;
   min-height: 100vh;
@@ -13,12 +15,15 @@ body {
   justify-content: space-between;
   overflow-x: hidden;
 }
+
 footer {
   justify-self: flex-end;
 }
+
 ::-webkit-scrollbar {
   display: none;
 }
+
 header,
 footer,
 main {
@@ -27,18 +32,22 @@ main {
   color: #fff;
   background: $color;
 }
+
 main {
   color: $color;
   background: #fff;
 }
+
 .container {
   max-width: 960px;
   margin: auto;
 }
+
 a {
   text-decoration: none;
   color: white;
 }
+
 h1.brand-logo {
   font-size: 1.5rem;
   letter-spacing: 0.1rem;
@@ -54,6 +63,7 @@ input[type="submit"] {
   border-radius: 999px;
   transform: scaleY(0.9);
 }
+
 input[type="text"] {
   display: inline-block;
   margin: 0.1rem 0px;
@@ -66,9 +76,11 @@ input[type="text"] {
   border-radius: 3px;
   border-radius: 999px;
 }
+
 .add-form input[type="text"] {
   border-radius: 999px 0 0 999px;
 }
+
 .add-form input[type="submit"] {
   border-radius: 0 999px 999px 0;
   font-weight: bold;
@@ -80,6 +92,7 @@ input[type="text"] {
   margin-top: 10px;
   padding: 3px 10px;
 }
+
 .list-header {
   border-bottom: 1px solid $color;
   display: flex;
@@ -88,7 +101,8 @@ input[type="text"] {
   background: $color;
   color: #fff;
 }
-.list-header > * {
+
+.list-header>* {
   padding: 10px;
 }
 
@@ -98,11 +112,15 @@ input[type="text"] {
   border-bottom: 2px solid $color;
   margin-bottom: 1rem;
 }
+
 .todos ul {
   list-style: none;
 }
+
 .todo-item {
   display: flex;
+  gap: 10px;
+  word-break: break-word;
   justify-content: space-between;
   align-items: baseline;
   padding: 10px;
@@ -110,28 +128,35 @@ input[type="text"] {
   margin-top: 5px;
   border-radius: 0.2rem;
   transition: all 2s ease-in;
+
   .right {
     display: flex;
     align-items: center;
-    gap:10px;
+    gap: 10px;
   }
 }
+
 .todo-item.hidden {
   display: none;
 }
-.todo-item{
+
+.todo-item {
   animation: slide-in-left 0.5s;
 }
-.todo-item > div {
+
+.todo-item>div {
   font-weight: 600;
   letter-spacing: 0.02rem;
 }
+
 li.completed {
   filter: opacity(70%);
+
   div:first-child {
     text-decoration: line-through;
   }
 }
+
 .del-btn {
   color: whitesmoke;
   background: crimson;
@@ -140,10 +165,12 @@ li.completed {
   padding: 0px 8px;
   padding-bottom: 2px;
 }
+
 .footer {
   margin-top: 2px;
   display: flex;
   justify-content: space-between;
+
   button {
     padding: 0.3rem 0.2rem;
     border: none;
@@ -152,6 +179,7 @@ li.completed {
     color: lighten($color: $color, $amount: 10);
   }
 }
+
 footer {
   .footer-links {
     display: flex;
@@ -162,11 +190,14 @@ footer {
 
 .faqs {
   text-align: left;
+
   .faq {
     margin: 1rem 0.3rem;
+
     h3 {
       font-weight: bold;
     }
+
     p {
       margin-left: 0.5rem;
     }
@@ -218,6 +249,7 @@ footer {
     bottom: 0;
     opacity: 0;
   }
+
   to {
     bottom: 30px;
     opacity: 1;
@@ -229,6 +261,7 @@ footer {
     bottom: 0;
     opacity: 0;
   }
+
   to {
     bottom: 30px;
     opacity: 1;
@@ -240,6 +273,7 @@ footer {
     bottom: 30px;
     opacity: 1;
   }
+
   to {
     bottom: 0;
     opacity: 0;
@@ -251,23 +285,28 @@ footer {
     bottom: 30px;
     opacity: 1;
   }
+
   to {
     bottom: 0;
     opacity: 0;
   }
 }
+
 @keyframes slide-in-left {
   from {
     transform: translateX(-100vw);
   }
+
   to {
     transform: translateX(0px);
   }
 }
+
 @keyframes slide-out-left {
   from {
     transform: translateX(0px);
   }
+
   to {
     transform: translateX(-100px);
   }
@@ -278,7 +317,8 @@ footer {
     background: $dark-color;
     flex-grow: 1;
   }
-  .footer > button {
+
+  .footer>button {
     background: darken($color: $dark-color, $amount: 10);
   }
 }
