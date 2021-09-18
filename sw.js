@@ -1,4 +1,4 @@
-var cacheName =  'todoApp-v4';
+var cacheName = 'todoApp-v4';
 // Change main js file name
 var filesToCache = [
     '/',
@@ -10,13 +10,13 @@ var filesToCache = [
     '/js/classes/Storage.js',
     '/js/classes/Task.js',
     '/js/classes/TaskManager.js',
-    'manifest.json'
+    'app.webmanifest'
 ];
 
 // Start the service worker and cache all of the app's content
-self.addEventListener('install' , function(e){
+self.addEventListener('install', function (e) {
     e.waitUntil(
-        caches.open(cacheName).then(function(cache){
+        caches.open(cacheName).then(function (cache) {
             return cache.addAll(filesToCache);
         })
     );
@@ -24,9 +24,9 @@ self.addEventListener('install' , function(e){
 
 // Serve Cache content when offline
 
-self.addEventListener('fetch', function(e){
+self.addEventListener('fetch', function (e) {
     e.respondWith(
-        caches.match(e.request).then(function(response){
+        caches.match(e.request).then(function (response) {
             return response || fetch(e.request);
         })
     );
