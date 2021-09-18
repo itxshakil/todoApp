@@ -24,6 +24,7 @@ export class ListTemplate {
                     uncompletedTask++;
                 }
             });
+            this.container.classList.remove('no-task');
         }
         else {
             this.container.innerHTML = '<strong class="todo-item">No Task Found.</strong>';
