@@ -1,6 +1,7 @@
 {
   "name": "Todo App",
   "short_name": "ToDo",
+  "description": "Todo App is Todo List keeping app where you can add, delete, search, and mark tasks as completed. Once you visited this site you can use the site without internet",
   "icons": [
     {
       "src": "images/logo-128.png",
