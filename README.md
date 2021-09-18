@@ -1,11 +1,12 @@
-# [todoApp](https://shakiltech.com/todo/ "ToDo App")
+# [todoApp](https://todo.shakiltech.com "ToDo App")
+
 ## A Basic To Do App made with TypeScript thats
 - *Fully Work Offline* (PWA)
 - *Minimal UI*
 - *Light Weight*
 - *Installable*(PWA)
 
->Demo : [https://shakiltech.com/todo/](https://shakiltech.com/todo/ "ToDo App")
+>Demo : [https://todo.shakiltech.com](https://todo.shakiltech.com "ToDo App")
 
 ## Author
 
