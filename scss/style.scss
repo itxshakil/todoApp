@@ -94,20 +94,6 @@ form#searchForm {
   margin-top: 10px;
   padding: 3px 10px;
 }
-
-.list-header {
-  border-bottom: 1px solid $color;
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  background: $color;
-  color: #fff;
-}
-
-.list-header>* {
-  padding: 10px;
-}
-
 .todos-title {
   display: inline-block;
   padding: 0rem 0.5rem;
