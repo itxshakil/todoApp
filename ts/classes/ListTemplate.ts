@@ -15,7 +15,7 @@ export class ListTemplate {
     li.setAttribute('data-array-index', index);
     li.style.animationDuration = `${(1 / length) * parseInt(index)}s`;
 
-    li.innerHTML = item.format();
+    li.innerHTML = item.format(index);
 
     this.container.appendChild(li);
   }
