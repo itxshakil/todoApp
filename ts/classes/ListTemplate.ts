@@ -36,7 +36,7 @@ export class ListTemplate {
 
       this.container.classList.remove('no-task');
     } else {
-      this.container.innerHTML = '<strong class="todo-item">No tasks here yet.</strong>';
+      this.container.innerHTML = '<li><strong class="todo-item">No tasks here yet.</strong><li>';
       this.container.classList.add('no-task')
     }
 
