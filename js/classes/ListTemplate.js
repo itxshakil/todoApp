@@ -27,7 +27,7 @@ export class ListTemplate {
             this.container.classList.remove('no-task');
         }
         else {
-            this.container.innerHTML = '<strong class="todo-item">No Task Found.</strong>';
+            this.container.innerHTML = '<strong class="todo-item">No tasks here yet.</strong>';
             this.container.classList.add('no-task');
         }
         if (navigator.setAppBadge) {
