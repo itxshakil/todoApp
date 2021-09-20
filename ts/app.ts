@@ -60,6 +60,11 @@ ul.addEventListener("click", event => {
 search.addEventListener("keyup", event => {
     let inputBox = event.target as HTMLInputElement;
     let searchValue = inputBox.value.toLowerCase();
+    if (searchValue) {
+        document.querySelector('body')?.classList.add('search');
+    } else {
+        document.querySelector('body')?.classList.remove('search');
+    }
     let lists = document.getElementsByTagName("li") as HTMLCollection;
 
     Array.from(lists).forEach(item => {
