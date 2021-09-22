@@ -144,7 +144,7 @@ form#searchForm {
 li.completed {
   filter: opacity(70%);
 
-  div:first-child {
+  label {
     text-decoration: line-through;
   }
 }
