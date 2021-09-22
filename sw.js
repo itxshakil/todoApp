@@ -4,6 +4,7 @@ var filesToCache = [
     '/',
     '/index.html',
     'index.html?source=pwa',
+    'index.html?source=shortcut',
     '/css/style.min.css',
     '/js/app.js',
     '/js/classes/ListTemplate.js',

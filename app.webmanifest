@@ -501,10 +501,19 @@
       "type": "image/png"
     }
   ],
+  "shortcuts" : [
+  {
+    "name": "Today's agenda",
+    "url": "index.html?source=shortcut",
+    "description": "List of tasks planned for today"
+  }
+],
   "lang": "en-US",
   "start_url": "/index.html?source=pwa",
   "scope": "/",
   "display": "standalone",
+  "orientation": "portrait-primary",
+  "categories":["productivity", "utilities", "personalization"],
   "background_color": "#fff",
   "theme_color": "#20cfeb"
 }
