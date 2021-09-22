@@ -10,4 +10,5 @@
 
 ## Author
 
-- **[Shakil Alam](https://github.com/itxshakil)**
+- Developed by **[Shakil Alam](https://github.com/itxshakil)**
+- Logo designed by **[Suraj Prabhakar](https://www.behance.net/surajprabhakar)**
