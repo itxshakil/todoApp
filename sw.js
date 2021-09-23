@@ -11,7 +11,9 @@ var filesToCache = [
     '/js/classes/Storage.js',
     '/js/classes/Task.js',
     '/js/classes/TaskManager.js',
-    'app.webmanifest'
+    'app.webmanifest',
+    '/about.html',
+    '/faq.html',
 ];
 
 // Start the service worker and cache all of the app's content
