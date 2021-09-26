@@ -49,8 +49,15 @@ ul.addEventListener("click", event => {
     }
 });
 search.addEventListener("keyup", event => {
+    var _a, _b;
     let inputBox = event.target;
     let searchValue = inputBox.value.toLowerCase();
+    if (searchValue) {
+        (_a = document.querySelector('body')) === null || _a === void 0 ? void 0 : _a.classList.add('search');
+    }
+    else {
+        (_b = document.querySelector('body')) === null || _b === void 0 ? void 0 : _b.classList.remove('search');
+    }
     let lists = document.getElementsByTagName("li");
     Array.from(lists).forEach(item => {
         let taskContainer = item.firstChild;

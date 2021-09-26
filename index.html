@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
   <meta charset="UTF-8" />
@@ -14,29 +14,30 @@
   <meta name="subject" content="ToDo App" />
   <meta name="language" content="en" />
   <meta name="rating" content="General" />
-  <meta name="url" content="https://shakiltech.com/todo/" />
-  <meta name="identifier-URL" content="https://shakiltech.com/todo/" />
+  <meta name="url" content="https://todo.shakiltech.com" />
+  <meta name="identifier-URL" content="https://todo.shakiltech.com" />
   <meta name="owner" content="Shakil Alam" />
   <meta name="author" content="Shakil Alam , itxshakil@gmail.com" />
   <meta name="og:title" content="ToDo App" />
-  <meta name="og:url" content="https://shakiltech.com/todo/" />
-  <meta name="og:url" content="https://shakiltech.com/todo/" />
+  <meta name="og:url" content="https://todo.shakiltech.com" />
+  <meta name="og:url" content="https://todo.shakiltech.com" />
   <meta name="og:url" content="http:todooffline.netlify.com/" />
   <meta name="og:site_name" content="ToDo App" />
-  <meta name="og:description"
-    content="Todo App is Todo List keeping app where you can add, delete, search, and mark tasks as completed. Once you visited this site you can use the site without internet" />
-  <meta name="og:email" content="itxshakil@gmail.com" />
-  <meta name="og:country-name" content="India" />
-  <meta name="theme-color" content="#20cfeb" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="#20cfeb" />
-  <meta name="apple-mobile-web-app-title" content="To Do App" />
-  <meta name="msapplication-TitleImage" content="images/logo-144.png" />
+  <meta name="msapplication-TitleImage" content="/images/android/android-launchericon-144-144.png" />
+  <link rel="apple-touch-icon" sizes="60x60" href="/images/windows10/Square44x44Logo.targetsize-60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/images/windows10/Square44x44Logo.targetsize-72.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/images/android/android-launchericon-144-144.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/images/msteams/msteams-192-192.png">
+  <link rel="icon" type="image/png" sizes="32x32"
+    href="/images/windows10/Square44x44Logo.altform-unplated_targetsize-32.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="/images/windows10/Square44x44Logo.targetsize-96.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/windows10/Square44x44Logo.targetsize-16.png">
+  <meta name="msapplication-TileImage" content="/images/android/android-launchericon-144-144.png">
   <meta name="msapplication-TitleColor" content="#20cfeb" />
-  <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
-  <link rel="apple-touch-icon" href="images/logo-152.png" />
-  <link rel="manifest" href="manifest.json" />
-  <link rel="stylesheet" href="css/style.min.css" />
+  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+  <link rel="apple-touch-icon" href="/images/apple-icon-152x152.png" />
+  <link rel="manifest" href="/app.webmanifest" />
+  <link rel="stylesheet" href="/css/style.min.css" />
   <!-- Global site tag (gtag.js) - Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=UA-137582152-1"></script>
   <script>(function (w, d, s, l, i) {
@@ -46,32 +47,23 @@
       }); var f = d.getElementsByTagName(s)[0],
         j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
           'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
-    })(window, document, 'script', 'dataLayer', 'GTM-MKCPBDN');
+    })(window, document, 'script', 'dataLayer', 'GTM-MWPLJHM');
   </script>
 </head>
 
 <body>
-  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MKCPBDN" height="0" width="0"
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MWPLJHM" height="0" width="0"
       style="display:none;visibility:hidden"></iframe></noscript>
   <header class="header">
     <h1 class="brand-logo">To Do App</h1>
-    <div class="search-form-wrapper">
-      <form action="" id="searchForm">
-        <input type="text" id="search" title="Enter tasks to search" name="search" placeholder="Search..." />
-      </form>
-    </div>
+    <form action="" id="searchForm">
+      <input type="text" id="search" title="Enter tasks to search" name="search" placeholder="Search tasks..." />
+    </form>
   </header>
   <main>
     <div class="container">
       <div class="todos">
         <h3 class="todos-title">Task To Do</h3>
-        <div class="list-header">
-          <div class="item">Todo Item</div>
-          <div class="right">
-            <span>Completed</span>
-            <span>Remove</span>
-          </div>
-        </div>
         <ul id="tasks-list"></ul>
         <div class="footer">
           <button id="clearCompleted">Clear completed</button>
@@ -80,7 +72,7 @@
       </div>
       <div class="add-form">
         <form id="add-form" action="">
-          <input type="text" name="todo" id="add-input" autocomplete="off" placeholder="Add Task..." />
+          <input type="text" name="todo" id="add-input" autocomplete="off" placeholder="Add new task..." />
           <input type="submit" value="Add" />
         </form>
       </div>
@@ -88,11 +80,17 @@
   </main>
   <footer class="page-footer grey  darken-4 center">
     <div class="white-text text-darken-5">
-      Designed with <span class="red-text text-darken-4">♥</span> By
-      <a class="white-text" href="https://shakiltech.com">Shakil Alam</a>
+      <div class="footer-links">
+        <a href="about.html">About App</a>
+        <a href="faq.html">FAQ</a>
+        <a href="https://github.com/itxshakil/todoApp">Report an issue</a>
+      </div>
+      <p>Designed with <span style="color:red">♥</span> By
+        <a class="white-text" href="https://shakiltech.com">Shakil Alam</a>
+      </p>
     </div>
   </footer>
-  <div id="+"></div>
+
   <script src="js/app.js" type="module"></script>
   <script>
     window.onload = () => {

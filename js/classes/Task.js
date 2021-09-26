@@ -6,10 +6,10 @@ export class Task {
     toggleCompleted() {
         this.completed = !this.completed;
     }
-    format() {
-        return `<div>${this.task}</div>
+    format(key) {
+        return `<label for="task-${key}">${this.task}</label>
                 <div class="right">
-                    <input type="checkbox" ${this.completed ? "checked" : ""} />
+                    <input id="task-${key}" type="checkbox" ${this.completed ? "checked" : ""} />
                     <button class="del-btn">&times;</button>
                 </div>`;
     }
