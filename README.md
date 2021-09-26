@@ -1,9 +1,10 @@
 
 # TodoApp
 
-You need a **simple task list keeping app** that is easy to use and you can use **without internet?** 
+Do you need a simple task **list-keeping app** that is easy to use and **works without the internet**? Then this is the perfect app for you that can add, delete, search, and mark tasks as completed.
 
-Then this is perfect app for you where you can add, delete, search, and mark tasks as completed.
+This website has developed as a PWA, so you can install and use this as an app. It works without
+                internet connection.
 
 ## Features
 
