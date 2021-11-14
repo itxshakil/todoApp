@@ -21,6 +21,17 @@ addForm.addEventListener("submit", event => {
         input.value = "";
     }
 });
+ul.addEventListener("dblclick", event => {
+    let target = event.target;
+    if (target.tagName == "LI") {
+        console.log(target);
+        let link = target.querySelector("label[data-link=true]");
+        if (link) {
+            let url = link.innerText;
+            window.open(url);
+        }
+    }
+});
 ul.addEventListener("click", event => {
     let target = event.target;
     if (target.tagName.toUpperCase() === "INPUT") {
