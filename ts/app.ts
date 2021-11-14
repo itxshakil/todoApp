@@ -26,6 +26,19 @@ addForm.addEventListener("submit", event => {
     }
 });
 
+ul.addEventListener("dblclick", event => {
+    let target = event.target as HTMLLIElement;
+    if (target.tagName == "LI") {
+        console.log(target)
+
+        let link = target.querySelector("label[data-link=true]") as HTMLLabelElement;
+        if(link){
+            let url = link.innerText;
+            window.open(url);
+        }
+    }
+});
+
 ul.addEventListener("click", event => {
     let target = event.target as HTMLElement;
 
