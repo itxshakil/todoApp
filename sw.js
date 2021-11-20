@@ -1,4 +1,4 @@
-var cacheName = 'todoApp-v1';
+var cacheName = 'todoApp-v1.1';
 // Change main js file name
 var filesToCache = [
     '/',
@@ -14,6 +14,8 @@ var filesToCache = [
     'app.webmanifest',
     '/about.html',
     '/faq.html',
+    '/share.html',
+    '/js/share.js',
 ];
 
 // Start the service worker and cache all of the app's content
