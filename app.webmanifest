@@ -530,6 +530,15 @@
       "type": "image/png"
     }
   ],
+  "share_target": {
+    "action": "share.html",
+    "method": "GET",
+    "params": {
+      "title": "title",
+      "text": "text",
+      "url": "url"
+    }
+  },
   "lang": "en-US",
   "start_url": "/index.html?source=pwa",
   "scope": "/",

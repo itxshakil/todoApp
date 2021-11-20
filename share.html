@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Todo App</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Todo App is Todo List keeping app where you can add, delete, search, and mark tasks as completed. Once you visited this site you can use the site without internet" />
+    <meta name="title" content="ToDo App" />
+    <meta name="keywords" content="todo App , task , todo offline , todo pwa, shakil alam ,todo appp , javascript project" />
+    <meta name="subject" content="ToDo App" />
+    <meta name="language" content="en" />
+    <meta name="rating" content="General" />
+    <meta name="url" content="https://todo.shakiltech.com" />
+    <meta name="identifier-URL" content="https://todo.shakiltech.com" />
+    <meta name="owner" content="Shakil Alam" />
+    <meta name="author" content="Shakil Alam , itxshakil@gmail.com" />
+    <meta name="og:title" content="ToDo App" />
+    <meta name="og:url" content="https://todo.shakiltech.com" />
+    <meta name="og:url" content="https://todo.shakiltech.com" />
+    <meta name="og:url" content="http:todooffline.netlify.com/" />
+    <meta name="og:site_name" content="ToDo App" />
+    <meta name="msapplication-TitleImage" content="/images/android/android-launchericon-144-144.png" />
+    <link rel="apple-touch-icon" sizes="60x60" href="/images/windows10/Square44x44Logo.targetsize-60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/images/windows10/Square44x44Logo.targetsize-72.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/images/android/android-launchericon-144-144.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/images/msteams/msteams-192-192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/windows10/Square44x44Logo.altform-unplated_targetsize-32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/images/windows10/Square44x44Logo.targetsize-96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/windows10/Square44x44Logo.targetsize-16.png">
+    <meta name="msapplication-TileImage" content="/images/android/android-launchericon-144-144.png">
+    <meta name="msapplication-TitleColor" content="#20cfeb" />
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="apple-touch-icon" href="/images/apple-icon-152x152.png" />
+    <link rel="manifest" href="/app.webmanifest" />
+    <link rel="stylesheet" href="/css/style.min.css" />
+    <style>
+    body {
+        font-family: Helvetica, Arial, sans-serif;
+    }
+
+    h1 {
+        text-align: center;
+    }
+
+    p { clear: both; }
+
+    .hidden {
+        display: none !important;
+    }
+
+    #notSupported b:first-of-type,
+    #requireHTTPS b:first-of-type {
+        color: #b71c1c;
+    }
+
+    button[disabled] {
+        opacity: 0.5;
+        border: 1px solid rgba(74, 20, 140, 0.5) !important;
+    }
+
+    button {
+        background-color: #e8eaf6;
+        border: 1px solid #3f51b5;
+        font-size: 1em;
+        padding: 0.75em;
+    }
+
+    label {
+        display: inline-block;
+        width: 250px;
+    }
+
+    ol {
+        list-style-type: none;
+        padding-inline-start: 0;
+    }
+
+    ul {
+        color: #aaa;
+    }
+
+    ul.success {
+        color: #000;
+    }
+
+    ul.error {
+        color: red;
+    }
+    </style>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-137582152-1"></script>
+    <script>(function (w, d, s, l, i) {
+        w[l] = w[l] || []; w[l].push({
+            'gtm.start':
+            new Date().getTime(), event: 'gtm.js'
+        }); var f = d.getElementsByTagName(s)[0],
+            j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+            'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-MWPLJHM');
+    </script>
+
+    <!-- import the webpage's javascript file -->
+    <script src="/target.js" defer></script>
+    <script>
+    /**
+    * Warn the page must be served over HTTPS
+    * The `beforeinstallprompt` event won't fire if the page is served over HTTP.
+    * Installability requires a service worker with a fetch event handler, and
+    * if the page isn't served over HTTPS, the service worker won't load.
+    */
+    if (window.location.protocol === 'http:') {
+    const requireHTTPS = document.getElementById('requireHTTPS');
+    const link = requireHTTPS.querySelector('a');
+    link.href = window.location.href.replace('http://', 'https://');
+    requireHTTPS.classList.remove('hidden');
+    window.location.href = 'https:' + window.location.href.substring(5);
+    }
+
+    /* Only register a service worker if it's supported */
+    if ('serviceWorker' in navigator) {
+    console.log('👍', 'navigator.serviceWorker is supported');
+    navigator.serviceWorker.register('sw.js');
+    }
+    </script>
+  </head>
+  <body>
+    <h1>
+      Web Share Target (v1)
+    </h1>
+    <p id="requireHTTPS" class="hidden">
+      <b>STOP!</b> This page <b>must</b> be served over HTTPS.
+      Please <a>reload this page via HTTPS</a>.
+    </p>
+
+    <p>
+      The Web Share Target API allows installed web apps
+      to register with the underlying OS as a share target
+      to receive shared content from either the Web Share
+      API or system events, like the OS-level share button.
+    </p>
+
+    <div>
+      <b><code>window.location</code>:</b> <code id="href"></code><br>
+      <b>Title:</b> <code id="title"></code><br>
+      <b>Text:</b> <code id="text"></code><br>
+      <b>URL:</b> <code id="url"></code>
+    </div>
+
+    <script>
+      window.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('href').textContent = window.location.href;
+            const parsedUrl = new URL(window.location);
+            document.getElementById('title').textContent = parsedUrl.searchParams.get('title');
+            document.getElementById('text').textContent = parsedUrl.searchParams.get('text');
+            document.getElementById('url').textContent = parsedUrl.searchParams.get('url');
+      });
+    </script>
+  </body>
+</html>
