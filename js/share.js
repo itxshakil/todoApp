@@ -19,4 +19,4 @@ const parsedUrl = new URL(location);
 let title = parsedUrl.searchParams.get("title") || "";
 let url = parsedUrl.searchParams.get("url") || "";
 taskManager.addTask(new Task(`${title} ${url}`));
-window.history.pushState({}, "", `${location.origin}/`);
+window.location.replace(`${location.origin}/`);
