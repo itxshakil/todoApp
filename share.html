@@ -101,7 +101,6 @@
     </script>
 
     <!-- import the webpage's javascript file -->
-    <script src="/target.js" defer></script>
     <script>
     /**
     * Warn the page must be served over HTTPS
@@ -119,8 +118,8 @@
 
     /* Only register a service worker if it's supported */
     if ('serviceWorker' in navigator) {
-    console.log('👍', 'navigator.serviceWorker is supported');
-    navigator.serviceWorker.register('sw.js');
+        console.log('👍', 'navigator.serviceWorker is supported');
+        navigator.serviceWorker.register('sw.js');
     }
     </script>
   </head>
