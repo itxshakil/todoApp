@@ -16,7 +16,9 @@ if (window.location.protocol === 'http:') {
 }
 let location = window.location;
 const parsedUrl = new URL(location);
-let title = parsedUrl.searchParams.get("title") || "";
+// let title = parsedUrl.searchParams.get("title") || "";
 let url = parsedUrl.searchParams.get("url") || "";
-taskManager.addTask(new Task(`${title} ${url}`));
+let text = parsedUrl.searchParams.get("text") || "";
+taskManager.addTask(new Task(`${text} ${url}`));
+taskManager.addTask(new Task(`${text} ${url}`));
 window.location.replace(`${location.origin}/`);
