@@ -22,12 +22,12 @@ addForm.addEventListener("submit", event => {
     }
 });
 ul.addEventListener("dblclick", event => {
+    var _a;
     let target = event.target;
     if (target.tagName == "LI") {
-        console.log(target);
         let link = target.querySelector("label[data-link=true]");
         if (link) {
-            let url = link.innerText;
+            let url = ((_a = link.dataset) === null || _a === void 0 ? void 0 : _a.url) || link.innerText;
             window.open(url);
         }
     }
@@ -81,14 +81,15 @@ search.addEventListener("keyup", event => {
         }
     });
 });
-markAsCompletedButton.addEventListener("click", event => {
+markAsCompletedButton.addEventListener("click", () => {
     let tasks = taskManager.markAllAsCompleted();
     listRenderer.display(tasks);
 });
-clearButton.addEventListener("click", event => {
+clearButton.addEventListener("click", () => {
     let tasks = taskManager.clearCompleted();
     listRenderer.display(tasks);
 });
 document.addEventListener("DOMContentLoaded", () => {
     listRenderer.display(taskManager.getTodos());
 });
+//# sourceMappingURL=app.js.map

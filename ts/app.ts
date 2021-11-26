@@ -29,11 +29,9 @@ addForm.addEventListener("submit", event => {
 ul.addEventListener("dblclick", event => {
     let target = event.target as HTMLLIElement;
     if (target.tagName == "LI") {
-        console.log(target)
-
         let link = target.querySelector("label[data-link=true]") as HTMLLabelElement;
         if(link){
-            let url = link.innerText;
+            let url = link.dataset?.url ||  link.innerText;
             window.open(url);
         }
     }
@@ -92,13 +90,13 @@ search.addEventListener("keyup", event => {
     })
 });
 
-markAsCompletedButton.addEventListener("click", event => {
+markAsCompletedButton.addEventListener("click", () => {
     let tasks = taskManager.markAllAsCompleted();
 
     listRenderer.display(tasks);
 })
 
-clearButton.addEventListener("click", event => {
+clearButton.addEventListener("click", () => {
     let tasks = taskManager.clearCompleted();
 
     listRenderer.display(tasks);
