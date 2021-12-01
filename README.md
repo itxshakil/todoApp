@@ -14,6 +14,8 @@ This website has developed as a PWA, so you can install and use this as an app. 
 - Fast
 - Fullscreen mode
 - Cross platform
+- URL Support (double click to open link when task has link)
+- Add task while sharing (Share target API)
 
 ## Demo
  - Try now **[https://todo.shakiltech.com](https://todo.shakiltech.com)**
