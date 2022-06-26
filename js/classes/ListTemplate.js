@@ -1,4 +1,5 @@
 export class ListTemplate {
+    container;
     constructor(container) {
         this.container = container;
     }

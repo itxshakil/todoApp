@@ -1,9 +1,7 @@
 import { Task } from "./Task.js";
 import { Storage } from "./Storage.js";
 export class TaskManager {
-    constructor() {
-        this.tasks = [];
-    }
+    tasks = [];
     addTask(task) {
         this.getTodos();
         this.tasks.push(task);

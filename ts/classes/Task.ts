@@ -8,21 +8,13 @@ export class Task {
     isLink() {
         let matches = this.task.match(/http(s)?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/);
 
-        if(matches && matches.length){
-            return true;
-        }
-
-        return false;
+        return matches?.length ? true : false;
     }
 
     getLink() {
         let matches = this.task.match(/http(s)?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/);
 
-        if (matches) {
-            return matches[0];
-        }
-
-        return null;
+        return matches ? matches[0] : null;
     }
 
     format(key:String) {

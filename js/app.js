@@ -21,12 +21,11 @@ addForm.addEventListener("submit", event => {
     input.value = "";
 });
 ul.addEventListener("dblclick", event => {
-    var _a;
     const target = event.target;
     if (target.tagName == "LI") {
         const link = target.querySelector("label[data-link=true]");
         if (link) {
-            const url = ((_a = link.dataset) === null || _a === void 0 ? void 0 : _a.url) || link.innerText;
+            const url = link.dataset?.url || link.innerText;
             window.open(url);
         }
     }
@@ -57,14 +56,13 @@ ul.addEventListener("click", event => {
     }
 });
 search.addEventListener("keyup", event => {
-    var _a, _b;
     const inputBox = event.target;
     const searchValue = inputBox.value.toLowerCase();
     if (searchValue) {
-        (_a = document.querySelector('body')) === null || _a === void 0 ? void 0 : _a.classList.add('search');
+        document.querySelector('body')?.classList.add('search');
     }
     else {
-        (_b = document.querySelector('body')) === null || _b === void 0 ? void 0 : _b.classList.remove('search');
+        document.querySelector('body')?.classList.remove('search');
     }
     const lists = document.getElementsByTagName("li");
     Array.from(lists).forEach(item => {
