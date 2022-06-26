@@ -28,7 +28,7 @@ export class TaskManager {
     }
 
     castAsTask(tasks: Task[]) {
-        let todos: Task[] = []
+        const todos: Task[] = []
         tasks.forEach(task => {
             todos.push(new Task(task.task, task.completed))
         });
@@ -50,7 +50,7 @@ export class TaskManager {
 
     markAllAsCompleted() {
         this.getTodos();
-        this.tasks.forEach(function (item) {
+        this.tasks.forEach((item) => {
             item.completed = true;
         })
 
@@ -71,5 +71,15 @@ export class TaskManager {
         Storage.addItem(this.tasks, "todos");
 
         return this.tasks;
+    }
+
+    getTasksCount() {
+        return this.tasks.length;
+    }
+
+    getCompletedTaskCount() {
+        return this.tasks.filter(task => {
+            return task.completed == true;
+        }).length;
     }
 }

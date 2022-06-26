@@ -8,10 +8,10 @@ if (window.location.protocol === 'http:') {
     (_a = document.querySelector('body')) === null || _a === void 0 ? void 0 : _a.appendChild(link);
     link.click();
 }
-let location = window.location;
+const location = window.location;
 const parsedUrl = new URL(location);
-let url = parsedUrl.searchParams.get("url") || "";
-let text = parsedUrl.searchParams.get("text") || "";
+const url = parsedUrl.searchParams.get("url") || "";
+const text = parsedUrl.searchParams.get("text") || "";
 taskManager.addTask(new Task(`${text} ${url}`));
 window.location.replace(`${location.origin}/`);
 //# sourceMappingURL=share.js.map
