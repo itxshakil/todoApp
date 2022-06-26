@@ -14,75 +14,72 @@ const listRenderer = new ListTemplate(ul);
 addForm.addEventListener("submit", event => {
     event.preventDefault();
 
-    let input = addForm.querySelector("input") as HTMLInputElement;
-    let value = input.value;
-    if (value == "") {
+    const input = addForm.querySelector("input") as HTMLInputElement;
+    if (input.value == "") {
         alert("Please Enter Text");
-    } else {
-        let tasks = taskManager.addTask(new Task(value));
-        listRenderer.display(tasks);
-
-        input.value = "";
+        return;
     }
+    const tasks = taskManager.addTask(new Task(input.value));
+    listRenderer.display(tasks);
+    showHideAdditionalButtons();
+
+    input.value = "";
 });
 
 ul.addEventListener("dblclick", event => {
-    let target = event.target as HTMLLIElement;
+    const target = event.target as HTMLLIElement;
     if (target.tagName == "LI") {
-        let link = target.querySelector("label[data-link=true]") as HTMLLabelElement;
-        if(link){
-            let url = link.dataset?.url ||  link.innerText;
+        const link = target.querySelector("label[data-link=true]") as HTMLLabelElement;
+        if (link) {
+            const url = link.dataset?.url || link.innerText;
             window.open(url);
         }
     }
 });
 
 ul.addEventListener("click", event => {
-    let target = event.target as HTMLElement;
+    const target = event.target as HTMLElement;
 
     if (target.tagName.toUpperCase() === "INPUT") {
-        let checkbox = target as HTMLInputElement;
-        let div = checkbox.parentNode as HTMLDivElement;
-        let list = div.parentNode as HTMLLIElement;
+        const checkbox = target as HTMLInputElement;
+        const div = checkbox.parentNode as HTMLDivElement;
+        const list = div.parentNode as HTMLLIElement;
 
-        let index = parseInt(list.dataset.arrayIndex!);
+        const index = parseInt(list.dataset.arrayIndex!);
+        taskManager.toggleTaskStatus(index);
         if (checkbox.checked) {
-            taskManager.toggleTaskStatus(index);
             list.classList.add("completed");
         } else {
-            taskManager.toggleTaskStatus(index);
             list.classList.remove("completed");
         }
     };
 
-    if (target.classList.contains("del-btn")) {
-        if (confirm("Are you sure to Delete?")) {
-            let delBtnDiv = target.parentNode as HTMLDivElement;
-            let list = delBtnDiv.parentNode as HTMLLIElement;
-            let index = parseInt(list.dataset.arrayIndex!);
+    if (target.classList.contains("del-btn") && confirm("Are you sure to Delete?")) {
+        const delBtnDiv = target.parentNode as HTMLDivElement;
+        const list = delBtnDiv.parentNode as HTMLLIElement;
+        const index = parseInt(list.dataset.arrayIndex!);
 
-            let tasks = taskManager.removeTask(index);
-
-            listRenderer.display(tasks);
-        }
+        const tasks = taskManager.removeTask(index);
+        listRenderer.display(tasks);
+        showHideAdditionalButtons();
     }
 })
 
 search.addEventListener("keyup", event => {
-    let inputBox = event.target as HTMLInputElement;
-    let searchValue = inputBox.value.toLowerCase();
+    const inputBox = event.target as HTMLInputElement;
+    const searchValue = inputBox.value.toLowerCase();
     if (searchValue) {
         document.querySelector('body')?.classList.add('search');
     } else {
         document.querySelector('body')?.classList.remove('search');
     }
-    let lists = document.getElementsByTagName("li") as HTMLCollection;
+    const lists = document.getElementsByTagName("li") as HTMLCollection;
 
     Array.from(lists).forEach(item => {
-        let taskContainer = item.firstChild as HTMLDivElement;
-        let task = taskContainer.textContent!;
+        const taskContainer = item.firstChild as HTMLDivElement;
+        const task = taskContainer.textContent!;
 
-        if (task.toLowerCase().indexOf(searchValue) != -1) {
+        if (task.toLowerCase().includes(searchValue)) {
             item.classList.remove("hidden");
         } else {
             item.classList.add("hidden");
@@ -91,17 +88,30 @@ search.addEventListener("keyup", event => {
 });
 
 markAsCompletedButton.addEventListener("click", () => {
-    let tasks = taskManager.markAllAsCompleted();
-
+    const tasks = taskManager.markAllAsCompleted();
     listRenderer.display(tasks);
+    showHideAdditionalButtons();
 })
 
 clearButton.addEventListener("click", () => {
-    let tasks = taskManager.clearCompleted();
-
+    const tasks = taskManager.clearCompleted();
     listRenderer.display(tasks);
+    showHideAdditionalButtons();
 })
 
+function showHideAdditionalButtons() {
+    const totalTasks = taskManager.getTasksCount();
+    const completedTasks = taskManager.getCompletedTaskCount();
+
+    clearButton.style.visibility = completedTasks > 0 ? "visible" : "hidden";
+
+    if (totalTasks > 0) {
+        markAsCompletedButton.style.visibility = completedTasks == totalTasks ? "hidden" : "visible";
+    } else {
+        markAsCompletedButton.style.visibility = "hidden";
+    }
+}
 document.addEventListener("DOMContentLoaded", () => {
     listRenderer.display(taskManager.getTodos());
+    showHideAdditionalButtons();
 });

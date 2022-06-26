@@ -20,7 +20,7 @@ export class TaskManager {
         return this.saveTasks();
     }
     castAsTask(tasks) {
-        let todos = [];
+        const todos = [];
         tasks.forEach(task => {
             todos.push(new Task(task.task, task.completed));
         });
@@ -38,7 +38,7 @@ export class TaskManager {
     }
     markAllAsCompleted() {
         this.getTodos();
-        this.tasks.forEach(function (item) {
+        this.tasks.forEach((item) => {
             item.completed = true;
         });
         return this.saveTasks();
@@ -53,6 +53,14 @@ export class TaskManager {
     saveTasks() {
         Storage.addItem(this.tasks, "todos");
         return this.tasks;
+    }
+    getTasksCount() {
+        return this.tasks.length;
+    }
+    getCompletedTaskCount() {
+        return this.tasks.filter(task => {
+            return task.completed == true;
+        }).length;
     }
 }
 //# sourceMappingURL=TaskManager.js.map

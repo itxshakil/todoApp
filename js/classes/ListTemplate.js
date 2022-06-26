@@ -14,22 +14,8 @@ export class ListTemplate {
         this.container.appendChild(li);
     }
     display(tasks) {
-        const length = tasks.length;
         this.clear();
-        let uncompletedTask = 0;
-        if (length) {
-            tasks.forEach((task, index) => {
-                this.render(task, index.toString(), length);
-                if (!task.completed) {
-                    uncompletedTask++;
-                }
-            });
-            this.container.classList.remove('no-task');
-        }
-        else {
-            this.container.innerHTML = '<li><strong class="todo-item">No tasks here yet.</strong><li>';
-            this.container.classList.add('no-task');
-        }
+        const uncompletedTask = this.showTasks(tasks);
         if (navigator.setAppBadge) {
             navigator.setAppBadge(uncompletedTask);
         }
@@ -39,6 +25,24 @@ export class ListTemplate {
         if (length > 1000) {
             alert("Hey User , You can Delete unnecessary Todos for smooth use.");
         }
+    }
+    showTasks(tasks) {
+        const length = tasks.length;
+        let uncompletedTask = 0;
+        if (length) {
+            this.container.classList.remove('no-task');
+        }
+        else {
+            this.container.innerHTML = '<li><strong class="todo-item">No tasks here yet.</strong><li>';
+            this.container.classList.add('no-task');
+        }
+        tasks.forEach((task, index) => {
+            this.render(task, index.toString(), length);
+            if (!task.completed) {
+                uncompletedTask++;
+            }
+        });
+        return uncompletedTask;
     }
     clear() {
         while (this.container.firstChild) {

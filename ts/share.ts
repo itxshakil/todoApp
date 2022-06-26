@@ -15,11 +15,11 @@ if (window.location.protocol === 'http:') {
     link.click();
 }
 
-let location: any = window.location;
+const location: any = window.location;
 const parsedUrl = new URL(location);
 // let title = parsedUrl.searchParams.get("title") || "";
-let url = parsedUrl.searchParams.get("url") || "";
-let text = parsedUrl.searchParams.get("text") || "";
+const url = parsedUrl.searchParams.get("url") || "";
+const text = parsedUrl.searchParams.get("text") || "";
 
 taskManager.addTask(new Task(`${text} ${url}`));
 window.location.replace(`${location.origin}/`);
