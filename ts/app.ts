@@ -47,6 +47,7 @@ ul.addEventListener("click", event => {
 
         const index = parseInt(list.dataset.arrayIndex!);
         taskManager.toggleTaskStatus(index);
+        showHideAdditionalButtons();
         if (checkbox.checked) {
             list.classList.add("completed");
         } else {

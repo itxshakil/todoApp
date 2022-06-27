@@ -179,6 +179,8 @@ li.completed {
 .no-task+.footer>button {
   display: none;
 }
+#clearCompleted, #markAsCompleted{transition: visibility 1s ease-in-out;}
+
 
 footer {
   .footer-links {
