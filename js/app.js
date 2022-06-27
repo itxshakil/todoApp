@@ -38,6 +38,7 @@ ul.addEventListener("click", event => {
         const list = div.parentNode;
         const index = parseInt(list.dataset.arrayIndex);
         taskManager.toggleTaskStatus(index);
+        showHideAdditionalButtons();
         if (checkbox.checked) {
             list.classList.add("completed");
         }
