@@ -47,13 +47,13 @@ ul.addEventListener("click", event => {
 
         const index = parseInt(list.dataset.arrayIndex!);
         taskManager.toggleTaskStatus(index);
-        showHideAdditionalButtons();
         if (checkbox.checked) {
             list.classList.add("completed");
         } else {
             list.classList.remove("completed");
         }
-    };
+        showHideAdditionalButtons();
+    }
 
     if (target.classList.contains("del-btn") && confirm("Are you sure to Delete?")) {
         const delBtnDiv = target.parentNode as HTMLDivElement;
