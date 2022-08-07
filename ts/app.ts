@@ -2,14 +2,14 @@ import { TaskManager } from "./classes/TaskManager.js";
 import { Task } from "./classes/Task.js";
 import { ListTemplate } from "./classes/ListTemplate.js";
 
-const ul = document.querySelector("#tasks-list") as HTMLUListElement;
+const taskLists = document.querySelector("#tasks-list") as HTMLUListElement;
 const addForm = document.forms[1];
 const search = document.querySelector("#search") as HTMLInputElement;
 const clearButton = document.querySelector("button#clearCompleted") as HTMLButtonElement;
 const markAsCompletedButton = document.querySelector("button#markAsCompleted") as HTMLButtonElement;
 
 const taskManager = new TaskManager();
-const listRenderer = new ListTemplate(ul);
+const listRenderer = new ListTemplate(taskLists);
 
 addForm.addEventListener("submit", event => {
     event.preventDefault();
@@ -26,7 +26,7 @@ addForm.addEventListener("submit", event => {
     input.value = "";
 });
 
-ul.addEventListener("dblclick", event => {
+taskLists.addEventListener("dblclick", event => {
     const target = event.target as HTMLLIElement;
     if (target.tagName == "LI") {
         const link = target.querySelector("label[data-link=true]") as HTMLLabelElement;
@@ -37,7 +37,7 @@ ul.addEventListener("dblclick", event => {
     }
 });
 
-ul.addEventListener("click", event => {
+taskLists.addEventListener("click", event => {
     const target = event.target as HTMLElement;
 
     if (target.tagName.toUpperCase() === "INPUT") {
@@ -65,6 +65,11 @@ ul.addEventListener("click", event => {
         showHideAdditionalButtons();
     }
 })
+
+taskLists.addEventListener("change", () => {
+    showHideAdditionalButtons();
+});
+
 
 search.addEventListener("keyup", event => {
     const inputBox = event.target as HTMLInputElement;
