@@ -85,6 +85,9 @@ markAsCompletedButton.addEventListener("click", () => {
     showHideAdditionalButtons();
 });
 clearButton.addEventListener("click", () => {
+    if (!window.confirm("Are you sure to clear all completed tasks?")) {
+        return;
+    }
     const tasks = taskManager.clearCompleted();
     listRenderer.display(tasks);
     showHideAdditionalButtons();

@@ -1,4 +1,4 @@
-const cacheName = 'todoApp-v1.7.1';
+const cacheName = 'todoApp-v1.7.2';
 
 const filesToCache = [
     '/',
