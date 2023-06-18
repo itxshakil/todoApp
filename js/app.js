@@ -107,4 +107,54 @@ document.addEventListener("DOMContentLoaded", () => {
     listRenderer.display(taskManager.getTodos());
     showHideAdditionalButtons();
 });
+const reg = await navigator.serviceWorker.getRegistration();
+Notification.requestPermission().then(permission => {
+    if (permission !== 'granted') {
+        alert('you need to allow push notifications');
+    }
+    else {
+        const timestamp = new Date().setHours(9, 0, 0, 0);
+        reg.showNotification('Good Morning, Time to plan your day', {
+            tag: timestamp,
+            body: 'Click to open the app',
+            showTrigger: new TimestampTrigger(timestamp),
+            data: {
+                url: window.location.href,
+            },
+            badge: '/images/apple-icon-152x152.png',
+            icon: '/images/apple-icon-152x152.png',
+            actions: [
+                {
+                    action: 'open',
+                    title: 'Open app',
+                },
+                {
+                    action: 'close',
+                    title: 'Close notification',
+                }
+            ]
+        });
+        const timestamp2 = new Date().setHours(18, 0, 0, 0);
+        reg.showNotification('Good Evening, Click to plan your tomorrow', {
+            tag: timestamp2,
+            body: 'Click to open the app',
+            showTrigger: new TimestampTrigger(timestamp2),
+            data: {
+                url: window.location.href,
+            },
+            badge: '/images/apple-icon-152x152.png',
+            icon: '/images/apple-icon-152x152.png',
+            actions: [
+                {
+                    action: 'open',
+                    title: 'Open app',
+                },
+                {
+                    action: 'close',
+                    title: 'Close notification',
+                }
+            ]
+        });
+    }
+});
 //# sourceMappingURL=app.js.map

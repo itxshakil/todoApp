@@ -1,4 +1,4 @@
-const cacheName = 'todoApp-v1.7.2';
+const cacheName = 'todoApp-v1.7.3';
 
 const filesToCache = [
     '/',
@@ -55,4 +55,19 @@ self.addEventListener('fetch', (e) => {
             return new Response();
         });
     }));
+});
+
+// on notificationclick event. if event action is close then close either open the home url
+self.addEventListener('notificationclick', (event) => {
+    if (event.action === 'close') {
+        event.notification.close();
+    } else {
+        event.waitUntil(clients.matchAll({
+            type: 'window',
+        }).then((clientList) => {
+            if (clients.openWindow) {
+                return clients.openWindow('/');
+            }
+        }));
+    }
 });

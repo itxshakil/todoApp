@@ -103,7 +103,7 @@ clearButton.addEventListener("click", () => {
     if (!window.confirm("Are you sure to clear all completed tasks?")) {
         return;
     }
-    
+
     const tasks = taskManager.clearCompleted();
     listRenderer.display(tasks);
     showHideAdditionalButtons();
@@ -124,4 +124,63 @@ function showHideAdditionalButtons() {
 document.addEventListener("DOMContentLoaded", () => {
     listRenderer.display(taskManager.getTodos());
     showHideAdditionalButtons();
+});
+
+
+const reg = await navigator.serviceWorker.getRegistration();
+
+Notification.requestPermission().then(permission => {
+    if (permission !== 'granted') {
+        alert('you need to allow push notifications');
+    } else {
+        const timestamp = new Date().setHours(9, 0, 0, 0);
+        reg.showNotification(
+            'Good Morning, Time to plan your day',
+            {
+                tag: timestamp, // a unique ID
+                body: 'Click to open the app',
+                showTrigger: new TimestampTrigger(timestamp), // set the time for the push notification
+                data: {
+                    url: window.location.href, // pass the current url to the notification
+                },
+                badge: '/images/apple-icon-152x152.png',
+                icon: '/images/apple-icon-152x152.png',
+                actions: [
+                    {
+                        action: 'open',
+                        title: 'Open app',
+                    },
+                    {
+                        action: 'close',
+                        title: 'Close notification',
+                    }
+                ]
+            }
+        );
+
+        const timestamp2 = new Date().setHours(18, 0, 0, 0);
+        reg.showNotification(
+            'Good Evening, Click to plan your tomorrow',
+            {
+                tag: timestamp2, // a unique ID
+                body: 'Click to open the app',
+                showTrigger: new TimestampTrigger(timestamp2), // set the time for the push notification
+                data: {
+                    url: window.location.href, // pass the current url to the notification
+                },
+                badge: '/images/apple-icon-152x152.png',
+                icon: '/images/apple-icon-152x152.png',
+                actions: [
+                    {
+                        action: 'open',
+                        title: 'Open app',
+                    },
+                    {
+                        action: 'close',
+                        title: 'Close notification',
+                    }
+                ]
+            }
+        );
+    }
 });
