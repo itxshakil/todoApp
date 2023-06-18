@@ -1,117 +1,142 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
-<head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Todo App</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description"
-    content="Todo App is Todo List keeping app where you can add, delete, search, and mark tasks as completed. Once you visited this site you can use the site without internet" />
-  <meta name="title" content="ToDo App" />
-  <meta name="keywords"
-    content="todo App , task , todo offline , todo pwa, shakil alam ,todo appp , javascript project" />
-  <meta name="subject" content="ToDo App" />
-  <meta name="language" content="en" />
-  <meta name="rating" content="General" />
-  <meta name="url" content="https://todo.shakiltech.com" />
-  <meta name="identifier-URL" content="https://todo.shakiltech.com" />
-  <meta name="owner" content="Shakil Alam" />
-  <meta name="author" content="Shakil Alam , itxshakil@gmail.com" />
-  <meta name="og:title" content="ToDo App" />
-  <meta name="og:url" content="https://todo.shakiltech.com" />
-  <meta name="og:url" content="https://todo.shakiltech.com" />
-  <meta name="og:url" content="http:todooffline.netlify.com/" />
-  <meta name="og:site_name" content="ToDo App" />
-  <meta name="msapplication-TitleImage" content="/images/android/android-launchericon-144-144.png" />
-  <link rel="apple-touch-icon" sizes="60x60" href="/images/windows10/Square44x44Logo.targetsize-60.png">
-  <link rel="apple-touch-icon" sizes="72x72" href="/images/windows10/Square44x44Logo.targetsize-72.png">
-  <link rel="apple-touch-icon" sizes="144x144" href="/images/android/android-launchericon-144-144.png">
-  <link rel="icon" type="image/png" sizes="192x192" href="/images/msteams/msteams-192-192.png">
-  <link rel="icon" type="image/png" sizes="32x32"
-    href="/images/windows10/Square44x44Logo.altform-unplated_targetsize-32.png">
-  <link rel="icon" type="image/png" sizes="96x96" href="/images/windows10/Square44x44Logo.targetsize-96.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/windows10/Square44x44Logo.targetsize-16.png">
-  <meta name="msapplication-TileImage" content="/images/android/android-launchericon-144-144.png">
-  <meta name="msapplication-TitleColor" content="#20cfeb" />
-  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
-  <link rel="apple-touch-icon" href="/images/apple-icon-152x152.png" />
-  <link rel="manifest" href="/app.webmanifest" />
-  <link rel="stylesheet" href="/css/style.min.css" />
-  <!-- Global site tag (gtag.js) - Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-137582152-1"></script>
-  <script>(function (w, d, s, l, i) {
-      w[l] = w[l] || []; w[l].push({
-        'gtm.start':
-          new Date().getTime(), event: 'gtm.js'
-      }); var f = d.getElementsByTagName(s)[0],
-        j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
-          'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
-    })(window, document, 'script', 'dataLayer', 'GTM-MWPLJHM');
-  </script>
-</head>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Todo App</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description"
+      content="Todo App is Todo List keeping app where you can add, delete, search, and mark tasks as completed. Once you visited this site you can use the site without internet" />
+    <meta name="title" content="ToDo App" />
+    <meta name="keywords"
+      content="todo App , task , todo offline , todo pwa, shakil alam ,todo appp , javascript project" />
+    <meta name="subject" content="ToDo App" />
+    <meta name="language" content="en" />
+    <meta name="rating" content="General" />
+    <meta name="url" content="https://todo.shakiltech.com" />
+    <meta name="identifier-URL" content="https://todo.shakiltech.com" />
+    <meta name="owner" content="Shakil Alam" />
+    <meta name="author" content="Shakil Alam , itxshakil@gmail.com" />
+    <meta name="og:title" content="ToDo App" />
+    <meta name="og:url" content="https://todo.shakiltech.com" />
+    <meta name="og:url" content="https://todo.shakiltech.com" />
+    <meta name="og:url" content="http:todooffline.netlify.com/" />
+    <meta name="og:site_name" content="ToDo App" />
+    <meta name="msapplication-TitleImage" content="/images/android/android-launchericon-144-144.png" />
+    <meta name="color-scheme" content="light dark" />
+    <link rel="apple-touch-icon" sizes="60x60" href="/images/windows10/Square44x44Logo.targetsize-60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/images/windows10/Square44x44Logo.targetsize-72.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/images/android/android-launchericon-144-144.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/images/msteams/msteams-192-192.png">
+    <link rel="icon" type="image/png" sizes="32x32"
+      href="/images/windows10/Square44x44Logo.altform-unplated_targetsize-32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/images/windows10/Square44x44Logo.targetsize-96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/windows10/Square44x44Logo.targetsize-16.png">
+    <meta name="msapplication-TileImage" content="/images/android/android-launchericon-144-144.png">
+    <meta name="msapplication-TitleColor" content="#20cfeb" />
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="apple-touch-icon" href="/images/apple-icon-152x152.png" />
+    <link rel="manifest" href="/app.webmanifest" />
+    <link rel="stylesheet" href="/css/style.min.css" />
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-137582152-1"></script>
+    <script>(function (w, d, s, l, i) {
+        w[l] = w[l] || []; w[l].push({
+          'gtm.start':
+            new Date().getTime(), event: 'gtm.js'
+        }); var f = d.getElementsByTagName(s)[0],
+          j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+            'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+      })(window, document, 'script', 'dataLayer', 'GTM-MWPLJHM');
+    </script>
+  </head>
 
-<body>
-  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MWPLJHM" height="0" width="0"
-      style="display:none;visibility:hidden"></iframe></noscript>
-  <header class="header">
-    <h1 class="brand-logo">To Do App</h1>
-    <form action="" id="searchForm">
-      <input type="text" id="search" title="Enter tasks to search" name="search" placeholder="Search tasks..." />
-    </form>
-  </header>
-  <main>
-    <div class="container">
-      <div class="todos">
-        <h3 class="todos-title">Task To Do</h3>
-        <ul id="tasks-list"></ul>
-        <div class="footer">
-          <button id="clearCompleted">Clear completed</button>
-          <button id="markAsCompleted">Mark all as completed</button>
+  <body>
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MWPLJHM" height="0" width="0"
+        style="display:none;visibility:hidden"></iframe></noscript>
+    <header class="header">
+      <h1 class="brand-logo">To Do App</h1>
+      <form action="" id="searchForm">
+        <input type="text" id="search" title="Enter tasks to search" name="search" placeholder="Search tasks..." />
+      </form>
+    </header>
+    <main>
+      <div class="container">
+        <div class="todos">
+          <h3 class="todos-title">Task To Do</h3>
+          <ul id="tasks-list"></ul>
+          <div class="footer">
+            <button id="clearCompleted">Clear completed</button>
+            <button id="markAsCompleted">Mark all as completed</button>
+          </div>
+        </div>
+        <div class="add-form">
+          <form id="add-form" action="">
+            <input type="text" name="todo" id="add-input" autocomplete="off" placeholder="Add new task..." />
+            <input type="submit" value="Add" />
+          </form>
         </div>
       </div>
-      <div class="add-form">
-        <form id="add-form" action="">
-          <input type="text" name="todo" id="add-input" autocomplete="off" placeholder="Add new task..." />
-          <input type="submit" value="Add" />
-        </form>
+    </main>
+    <footer class="page-footer grey  darken-4 center">
+      <div class="white-text text-darken-5">
+        <div class="footer-links">
+          <a href="about.html">About App</a>
+          <a href="faq.html">FAQ</a>
+          <a href="https://github.com/itxshakil/todoApp">Report an issue</a>
+        </div>
+        <p>Designed with <span style="color:red">♥</span> By
+          <a class="white-text" href="https://shakiltech.com">Shakil Alam</a>
+        </p>
       </div>
-    </div>
-  </main>
-  <footer class="page-footer grey  darken-4 center">
-    <div class="white-text text-darken-5">
-      <div class="footer-links">
-        <a href="about.html">About App</a>
-        <a href="faq.html">FAQ</a>
-        <a href="https://github.com/itxshakil/todoApp">Report an issue</a>
-      </div>
-      <p>Designed with <span style="color:red">♥</span> By
-        <a class="white-text" href="https://shakiltech.com">Shakil Alam</a>
-      </p>
-    </div>
-  </footer>
+    </footer>
 
-  <script src="js/app.js" type="module"></script>
-  <script>
-    window.onload = () => {
-      "use strict";
-      /**
-      * Warn the page must be served over HTTPS
-      * The `beforeinstallprompt` event won't fire if the page is served over HTTP.
-      * Installability requires a service worker with a fetch event handler, and
-      * if the page isn't served over HTTPS, the service worker won't load.
-      */
-      if (window.location.protocol === 'http:') {
+    <div class="snackbar" id="install-snackbar">
+      <h3 class="snackbar-title">Install Our Website for the Best Experience!</h3>
+      <div class="snackbar-content">
+        <p>Get faster load times and push notifications by installing our website as an app. Takes up almost no storage.
+          Install now!</p>
+        <div class="action-buttons">
+          <button onclick="window.showInstallPromotion()" class="action-button">Install Now</button>
+          <button onclick="dismissSnackbar()" class="dismiss-button">Dismiss</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="snackbar" id="notification-snackbar">
+      <h3 class="snackbar-title">Enable Notifications for the Best Experience!</h3>
+      <div class="snackbar-content">
+        <p>Stay updated with important notifications and never miss a task. Enable browser notifications now!</p>
+        <div class="action-buttons">
+          <button onclick="enableNotifications()" class="action-button">Enable Notifications</button>
+          <button onclick="dismissSnackbar()" class="dismiss-button">Dismiss</button>
+        </div>
+      </div>
+    </div>
+    <script src="js/app.js" type="module"></script>
+    <script>
+      window.onload = () => {
+        "use strict";
+        /**
+        * Warn the page must be served over HTTPS
+        * The `beforeinstallprompt` event won't fire if the page is served over HTTP.
+        * Installability requires a service worker with a fetch event handler, and
+        * if the page isn't served over HTTPS, the service worker won't load.
+        *
+        * Except localhost or 127.0.0.1 (testing/local environment)
+        */
+        if (window.location.protocol === 'http:' && window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
           const link = document.createElement('a');
           link.href = window.location.href.replace('http://', 'https://');
           document.querySelector('body')?.appendChild(link);
           link.click();
-      }
-      if ("serviceWorker" in navigator) {
-        navigator.serviceWorker.register("sw.js");
-      }
-    };
-  </script>
-</body>
+        }
+        if ("serviceWorker" in navigator) {
+          navigator.serviceWorker.register("sw.js");
+        }
+      };
+    </script>
+  </body>
 
 </html>

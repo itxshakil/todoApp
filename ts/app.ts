@@ -16,13 +16,18 @@ addForm.addEventListener("submit", event => {
 
     const input = addForm.querySelector("input") as HTMLInputElement;
     if (input.value == "") {
-        alert("Please Enter Text");
+        alert("Please enter a task");
         return;
     }
     const tasks = taskManager.addTask(new Task(input.value));
     listRenderer.display(tasks);
     showHideAdditionalButtons();
 
+    if (!window.matchMedia('(display-mode: standalone)').matches) {
+        showInstallSnackbar();
+    } else if (Notification.permission !== 'granted' && Notification.permission !== 'denied' && tasks.length > 2) {
+        showNotificationSnackbar();
+    }
     input.value = "";
 });
 
@@ -52,6 +57,11 @@ taskLists.addEventListener("click", event => {
         } else {
             list.classList.remove("completed");
         }
+
+        if (!window.matchMedia('(display-mode: standalone)').matches && !document.querySelector('.snackbar.show')) {
+            showInstallSnackbar();
+        }
+
         showHideAdditionalButtons();
     }
 
@@ -69,7 +79,6 @@ taskLists.addEventListener("click", event => {
 taskLists.addEventListener("change", () => {
     showHideAdditionalButtons();
 });
-
 
 search.addEventListener("keyup", event => {
     const inputBox = event.target as HTMLInputElement;
@@ -126,47 +135,78 @@ document.addEventListener("DOMContentLoaded", () => {
     showHideAdditionalButtons();
 });
 
+function showInstallSnackbar() {
+    const snackBar = document.getElementById('install-snackbar');
+    setTimeout(() => {
+        snackBar?.classList.add('show');
+        setTimeout(() => {
+            snackBar.remove();
+        }, 10_000)
+    }, 3000)
+}
 
-const reg = await navigator.serviceWorker.getRegistration();
+function showNotificationSnackbar() {
+    const snackBar = document.getElementById('notification-snackbar');
+    setTimeout(() => {
+        snackBar?.classList.add('show');
+        setTimeout(() => {
+            snackBar.remove();
+        }, 10_000)
+    }, 3000)
+}
 
-Notification.requestPermission().then(permission => {
-    if (permission !== 'granted') {
-        alert('you need to allow push notifications');
+let deferredPrompt;
+
+window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+});
+
+window.showInstallPromotion = () => {
+    deferredPrompt.prompt();
+    deferredPrompt = null;
+}
+
+window.dismissSnackbar = () => {
+    const activeSnackbar = document.querySelector('.snackbar.show');
+    activeSnackbar?.classList.remove('show');
+}
+
+window.enableNotifications = async () => {
+    const reg = await navigator.serviceWorker.getRegistration();
+
+    if (!reg) {
+        alert('No service worker registered');
+        return;
+    }
+
+    if (Notification.permission === 'granted') {
+        registerNotification(reg, 'Good Morning, Time to plan your day', 9);
+        registerNotification(reg, 'Good Evening, Click to plan your tomorrow', 18);
     } else {
-        const timestamp = new Date().setHours(9, 0, 0, 0);
-        reg.showNotification(
-            'Good Morning, Time to plan your day',
-            {
-                tag: timestamp, // a unique ID
-                body: 'Click to open the app',
-                showTrigger: new TimestampTrigger(timestamp), // set the time for the push notification
-                data: {
-                    url: window.location.href, // pass the current url to the notification
-                },
-                badge: '/images/apple-icon-152x152.png',
-                icon: '/images/apple-icon-152x152.png',
-                actions: [
-                    {
-                        action: 'open',
-                        title: 'Open app',
-                    },
-                    {
-                        action: 'close',
-                        title: 'Close notification',
-                    }
-                ]
+        try {
+            const permission = await Notification.requestPermission();
+            if (permission === 'granted') {
+                registerNotification(reg, 'Good Morning, Time to plan your day', 9);
+                registerNotification(reg, 'Good Evening, Click to plan your tomorrow', 18);
+            } else {
+                alert('You need to allow push notifications.');
             }
-        );
+        } catch (e) {
+            console.log(e);
+        }
+    }
 
-        const timestamp2 = new Date().setHours(18, 0, 0, 0);
+    function registerNotification(reg: ServiceWorkerRegistration, title: string, hour: number) {
+        const timestamp = new Date().setHours(hour, 0, 0, 0);
         reg.showNotification(
-            'Good Evening, Click to plan your tomorrow',
+            title,
             {
-                tag: timestamp2, // a unique ID
+                tag: timestamp,
                 body: 'Click to open the app',
-                showTrigger: new TimestampTrigger(timestamp2), // set the time for the push notification
+                showTrigger: new TimestampTrigger(timestamp),
                 data: {
-                    url: window.location.href, // pass the current url to the notification
+                    url: window.location.href,
                 },
                 badge: '/images/apple-icon-152x152.png',
                 icon: '/images/apple-icon-152x152.png',
@@ -183,4 +223,4 @@ Notification.requestPermission().then(permission => {
             }
         );
     }
-});
+}

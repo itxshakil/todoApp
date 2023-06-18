@@ -1,4 +1,6 @@
-$color: #20cfeb;
+$primaryColor: #2b479d;
+$primaryDark: #16244f;
+$primaryLight: #95a3ce;
 $dark-color: #494949;
 
 * {
@@ -14,6 +16,7 @@ body {
   flex-direction: column;
   justify-content: space-between;
   overflow-x: hidden;
+  accent-color: $primaryColor;
 }
 
 footer {
@@ -30,11 +33,11 @@ main {
   text-align: center;
   padding: 1rem;
   color: #fff;
-  background: $color;
+  background: $primaryColor;
 }
 
 main {
-  color: $color;
+  color: $primaryColor;
   background: #fff;
 }
 
@@ -57,7 +60,7 @@ h1.brand-logo {
 input[type="submit"] {
   border: none;
   outline: none;
-  background: $color;
+  background: $primaryColor;
   color: whitesmoke;
   padding: 0.2rem 1.2rem;
   border-radius: 999px;
@@ -67,7 +70,7 @@ input[type="text"] {
   display: inline-block;
   padding: 0.6rem 0.8rem;
   outline: none;
-  border: 1px solid $color;
+  border: 1px solid $primaryColor;
   width: 100%;
   max-width: 360px;
   text-align: center;
@@ -79,7 +82,7 @@ form#searchForm {
   margin-top: 5px;
 }
 
-.search .footer{
+.search .footer {
   display: none;
 }
 
@@ -101,7 +104,7 @@ form#searchForm {
 .todos-title {
   display: inline-block;
   padding: 0rem 0.5rem;
-  border-bottom: 2px solid $color;
+  border-bottom: 2px solid $primaryColor;
   margin-bottom: 1rem;
 }
 
@@ -116,7 +119,7 @@ form#searchForm {
   justify-content: space-between;
   align-items: baseline;
   padding: 10px;
-  border: 1px solid $color;
+  border: 1px solid $primaryColor;
   margin-top: 5px;
   border-radius: 0.2rem;
   transition: all 2s ease-in;
@@ -136,7 +139,7 @@ form#searchForm {
   animation: slide-in-left 0.5s;
 }
 
-.todo-item>div {
+.todo-item > div {
   font-weight: 600;
   letter-spacing: 0.02rem;
 }
@@ -146,7 +149,7 @@ label[data-link="true"] {
 }
 
 li.completed {
-  filter: opacity(70%);
+  filter: opacity(50%);
 
   label {
     text-decoration: line-through;
@@ -158,12 +161,12 @@ li.completed {
   background: crimson;
   border: none;
   border-radius: 3px;
-  padding: 0px 8px;
+  padding: 0 8px;
   padding-bottom: 2px;
 }
 
 .footer {
-  margin-top: 2px;
+  margin-top: 4px;
   display: flex;
   justify-content: space-between;
 
@@ -172,15 +175,17 @@ li.completed {
     border: none;
     border-radius: 5px;
     background: whitesmoke;
-    color: lighten($color: $color, $amount: 10);
+    color: lighten($primaryColor, 10);
   }
 }
 
-.no-task+.footer>button {
+.no-task + .footer > button {
   display: none;
 }
-#clearCompleted, #markAsCompleted{transition: visibility 1s ease-in-out;}
-
+#clearCompleted,
+#markAsCompleted {
+  transition: visibility 1s ease-in-out;
+}
 
 footer {
   .footer-links {
@@ -216,7 +221,7 @@ footer {
 
 footer {
   padding: 1rem;
-  background-color: $color;
+  background-color: $primaryColor;
   text-align: center;
 }
 
@@ -225,7 +230,7 @@ footer {
   visibility: hidden;
   min-width: 250px;
   margin-left: -125px;
-  background-color: $color;
+  background-color: $primaryColor;
   color: #fff;
   text-align: center;
   border-radius: 2px;
@@ -240,7 +245,7 @@ footer {
 #snackbar.show {
   visibility: visible;
   /* Add animation: Take 0.5 seconds to fade in and out the snackbar.
-    However, delay the fade out process for 2.5 seconds */
+      However, delay the fade out process for 2.5 seconds */
   -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
   animation: fadein 0.5s, fadeout 0.5s 2.5s;
 }
@@ -315,12 +320,105 @@ footer {
 }
 
 @media (prefers-color-scheme: dark) {
+  body {
+    accent-color: $primaryDark;
+  }
+
   main {
     background: $dark-color;
     flex-grow: 1;
+    color: #eaedf5;
   }
 
-  .footer>button {
-    background: darken($color: $dark-color, $amount: 10);
+  .footer > button {
+    background: $primaryDark;
+    color: #eaedf5;
   }
+
+  input[type="text"],
+  .todo-item {
+    border-color: $primaryDark;
+  }
+
+  .todo-item {
+    background-color: $primaryLight;
+    color: $fff;
+  }
+
+  input[type="submit"] {
+    background-color: $primaryDark;
+  }
+}
+
+.snackbar {
+  margin: 2px;
+  background-color: $primaryColor;
+  color: #ffffff;
+  padding: 4px;
+  border-radius: 4px;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  margin-bottom: 8px;
+  margin-right: 8px;
+  max-width: 36rem;
+  display: none;
+  transition-duration: 200ms;
+  transition-timing-function: ease-in;
+}
+
+.snackbar.show {
+  display: block;
+  animation: slide-in-bottom 0.5s;
+  box-shadow: rgba(0, 0, 0, 0.15) 0 2px 8px;
+}
+
+.snackbar-title {
+  padding-bottom: 2px;
+  font-weight: 600;
+  font-size: 1.125rem;
+  letter-spacing: 0.05em;
+}
+
+.snackbar-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 2px;
+  align-items: flex-end;
+}
+
+.action-button,
+.dismiss-button {
+  white-space: nowrap;
+  background-color: #ffffff;
+  color: $primaryColor;
+  padding: 0.75rem 1rem;
+  border-radius: 9999px;
+  outline: none;
+  font-weight: bold;
+  font-size: 0.75rem;
+  box-shadow: none;
+  transition-duration: 200ms;
+  text-transform: uppercase;
+  border: none;
+}
+
+.dismiss-button {
+  color: $dark-color;
+}
+.action-buttons {
+  display: flex;
+  flex-direction: row-reverse;
+  gap: 0.5rem;
+  padding: 0.5rem;
+}
+.action-button:hover {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+
+.action-button:hover,
+.action-button:focus {
+  border: 2px solid currentColor;
+  box-shadow: 0 2px 4px rgba(0, 0, 0);
 }
