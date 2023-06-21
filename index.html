@@ -144,26 +144,14 @@
           link.click();
         }
         if ("serviceWorker" in navigator) {
-          navigator.serviceWorker.addEventListener('statechange', function (e) {
-              console.log("SW statechange: ", e);
-              if (e.target.state === 'activated') {
-                showSnackbar('offline-snackbar');
-              }
-            });
-
           navigator.serviceWorker.register("sw.js")
             .then(registration => {
-              console.log("SW Registered!");
               registration.periodicSync.register('notificationSync', {
                 minInterval: 5 * 60 * 60 * 1000, // 5 hours
               });
 
-              if (registration.installing) {
-                console.log("SW Installing!");
-              } else if (registration.waiting) {
-                console.log("SW Waiting!");
-              } else if (registration.active) {
-                console.log("SW Active!");
+              if (registration.active) {
+                showSnackbar('offline-snackbar');
               }
             })
             .catch(error => {

@@ -35,7 +35,6 @@ self.addEventListener('activate', (e) => {
             // `claim()` sets this worker as the active worker for all clients that
             // match the workers scope and triggers an `oncontrollerchange` event for
             // the clients.
-            console.log("[ServiceWorker]  Claiming client");
             return self.clients.claim();
         })
     );
@@ -48,7 +47,7 @@ self.addEventListener('fetch', (e) => {
         }
 
         return fetch(e.request).then((response) => {
-            if (!response || response.status !== 200 || response.type !== 'basic') {
+            if (!response || response.status !== 200 || response.type !== 'basic' || e.request.method !== 'GET' || e.request.url.indexOf('chrome-extension') !== -1) {
                 return response;
             }
 
@@ -81,19 +80,15 @@ self.addEventListener('notificationclick', (event) => {
 });
 
 self.addEventListener('periodicsync', async (event) => {
-    console.log("Periodic Sync");
     if (event.tag === 'notificationSync') {
-        console.log("Notification Sync detected");
         const now = new Date();
         const startHour = 8; // Start hour (8 AM)
         const endHour = 20; // End hour (8 PM)
 
-        if (now.getHours() >= startHour && now.getHours() < endHour || true) {
+        if (now.getHours() >= startHour && now.getHours() < endHour) {
             if (Notification.permission === 'granted') {
-                console.log("Notification permission granted");
                 registerNotification();
             } else {
-                console.log("Notification permission not granted");
                 // try {
                 //     const permission = await Notification.requestPermission();
                 //     if (permission === 'granted') {
