@@ -1,4 +1,5 @@
 {
+  "id" : "todo.shakiltech.com",
   "name": "Todo App",
   "short_name": "ToDo",
   "description": "Todo App is Todo List keeping app where you can add, delete, search, and mark tasks as completed. Once you visited this site you can use the site without internet",
@@ -419,7 +420,9 @@
     },
     {
       "src": "/images/android/android-launchericon-192-192.png",
-      "sizes": "192x192"
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
     },
     {
       "src": "/images/android/android-launchericon-144-144.png",
@@ -544,7 +547,22 @@
   "scope": "/",
   "display": "standalone",
   "orientation": "portrait-primary",
-  "categories": ["productivity", "utilities", "personalization"],
-  "background_color": "#fff",
-  "theme_color": "#20cfeb"
+  "categories": [
+    "productivity",
+    "utilities",
+    "personalization"
+  ],
+  "background_color": "#2b479d",
+  "theme_color": "#2b479d",
+  "dir": "ltr",
+  "handle_links": "preferred",
+  "display_override": [
+    "window-controls-overlay",
+    "fullscreen",
+    "minimal-ui"
+  ],
+  "prefer_related_applications": false,
+  "edge_side_panel": {
+    "preferred_width": 0
+  }
 }

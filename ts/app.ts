@@ -136,23 +136,24 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 function showInstallSnackbar() {
-    const snackBar = document.getElementById('install-snackbar');
+    showSnackbar('install-snackbar');
+}
+
+function showSnackbar(snackBarId: string, delay: number = 3000, timeout = 10_000) {
+    const activeSnackbar = document.querySelector('.snackbar.show');
+    activeSnackbar?.classList.remove('show');
+
+    const snackBar = document.getElementById(snackBarId);
     setTimeout(() => {
         snackBar?.classList.add('show');
         setTimeout(() => {
-            snackBar.remove();
-        }, 10_000)
-    }, 3000)
+            snackBar?.remove();
+        }, timeout)
+    }, delay)
 }
 
 function showNotificationSnackbar() {
-    const snackBar = document.getElementById('notification-snackbar');
-    setTimeout(() => {
-        snackBar?.classList.add('show');
-        setTimeout(() => {
-            snackBar.remove();
-        }, 10_000)
-    }, 3000)
+    showSnackbar('notification-snackbar');
 }
 
 let deferredPrompt;
@@ -180,47 +181,14 @@ window.enableNotifications = async () => {
         return;
     }
 
-    if (Notification.permission === 'granted') {
-        registerNotification(reg, 'Good Morning, Time to plan your day', 9);
-        registerNotification(reg, 'Good Evening, Click to plan your tomorrow', 18);
-    } else {
+    if (Notification.permission !== 'granted') {
         try {
             const permission = await Notification.requestPermission();
-            if (permission === 'granted') {
-                registerNotification(reg, 'Good Morning, Time to plan your day', 9);
-                registerNotification(reg, 'Good Evening, Click to plan your tomorrow', 18);
-            } else {
+            if (permission !== 'granted') {
                 alert('You need to allow push notifications.');
             }
         } catch (e) {
             console.log(e);
         }
-    }
-
-    function registerNotification(reg: ServiceWorkerRegistration, title: string, hour: number) {
-        const timestamp = new Date().setHours(hour, 0, 0, 0);
-        reg.showNotification(
-            title,
-            {
-                tag: timestamp,
-                body: 'Click to open the app',
-                showTrigger: new TimestampTrigger(timestamp),
-                data: {
-                    url: window.location.href,
-                },
-                badge: '/images/apple-icon-152x152.png',
-                icon: '/images/apple-icon-152x152.png',
-                actions: [
-                    {
-                        action: 'open',
-                        title: 'Open app',
-                    },
-                    {
-                        action: 'close',
-                        title: 'Close notification',
-                    }
-                ]
-            }
-        );
     }
 }

@@ -92,6 +92,17 @@
       </div>
     </footer>
 
+    <div class="snackbar" id="offline-snackbar">
+      <h3 class="snackbar-title">You can now use this app offline too!</h3>
+      <div class="snackbar-content">
+        <p>Our website can now be accessed offline too. You can now add tasks and view them even when you are offline.
+          Try it out!</p>
+        <div class="action-buttons">
+          <button onclick="dismissSnackbar()" class="dismiss-button">Dismiss</button>
+        </div>
+      </div>
+    </div>
+
     <div class="snackbar" id="install-snackbar">
       <h3 class="snackbar-title">Install Our Website for the Best Experience!</h3>
       <div class="snackbar-content">
@@ -133,7 +144,23 @@
           link.click();
         }
         if ("serviceWorker" in navigator) {
-          navigator.serviceWorker.register("sw.js");
+          navigator.serviceWorker.register("sw.js")
+            .then(registration => {
+              console.log("SW Registered!");
+              registration.periodicSync.register('notificationSync', {
+                minInterval: 5 * 60 * 60 * 1000, // 5 hours
+              });
+            }).catch(error => {
+              console.log("SW Registration Failed!");
+              console.log(error);
+            });
+
+            navigator.serviceWorker.addEventListener('statechange', function (e) {
+              if (e.target.state === 'activated') {
+                showSnackbar('offline-snackbar');
+              }
+            });
+
         }
       };
     </script>
