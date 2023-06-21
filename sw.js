@@ -88,7 +88,7 @@ self.addEventListener('periodicsync', async (event) => {
         const startHour = 8; // Start hour (8 AM)
         const endHour = 20; // End hour (8 PM)
 
-        if (now.getHours() >= startHour && now.getHours() < endHour) {
+        if (now.getHours() >= startHour && now.getHours() < endHour || true) {
             if (Notification.permission === 'granted') {
                 console.log("Notification permission granted");
                 registerNotification();
