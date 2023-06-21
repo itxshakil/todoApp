@@ -144,6 +144,13 @@
           link.click();
         }
         if ("serviceWorker" in navigator) {
+          navigator.serviceWorker.addEventListener('statechange', function (e) {
+              console.log("SW statechange: ", e);
+              if (e.target.state === 'activated') {
+                showSnackbar('offline-snackbar');
+              }
+            });
+
           navigator.serviceWorker.register("sw.js")
             .then(registration => {
               console.log("SW Registered!");
@@ -154,14 +161,6 @@
               console.log("SW Registration Failed!");
               console.log(error);
             });
-
-            navigator.serviceWorker.addEventListener('statechange', function (e) {
-              console.log("SW statechange: ", e);
-              if (e.target.state === 'activated') {
-                showSnackbar('offline-snackbar');
-              }
-            });
-
         }
       };
     </script>
