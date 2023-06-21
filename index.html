@@ -95,7 +95,7 @@
     <div class="snackbar" id="offline-snackbar">
       <h3 class="snackbar-title">You can now use this app offline too!</h3>
       <div class="snackbar-content">
-        <p>Our website can now be accessed offline too. You can now add tasks and view them even when you are offline.
+        <p>You can now add tasks and view them even when you are offline.
           Try it out!</p>
         <div class="action-buttons">
           <button onclick="dismissSnackbar()" class="dismiss-button">Dismiss</button>
@@ -150,7 +150,7 @@
                 minInterval: 5 * 60 * 60 * 1000, // 5 hours
               });
 
-              if (registration.active) {
+              if (registration.active && !window.matchMedia('(display-mode: standalone)').matches) {
                 showSnackbar('offline-snackbar');
               }
             })
