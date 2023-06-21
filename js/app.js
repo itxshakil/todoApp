@@ -117,9 +117,9 @@ document.addEventListener("DOMContentLoaded", () => {
     showHideAdditionalButtons();
 });
 function showInstallSnackbar() {
-    showSnackbar('install-snackbar');
+    window.showSnackbar('install-snackbar');
 }
-function showSnackbar(snackBarId, delay = 3000, timeout = 10000) {
+window.showSnackbar = (snackBarId, delay = 3000, timeout = 10000) => {
     const activeSnackbar = document.querySelector('.snackbar.show');
     activeSnackbar?.classList.remove('show');
     const snackBar = document.getElementById(snackBarId);
@@ -129,9 +129,9 @@ function showSnackbar(snackBarId, delay = 3000, timeout = 10000) {
             snackBar?.remove();
         }, timeout);
     }, delay);
-}
+};
 function showNotificationSnackbar() {
-    showSnackbar('notification-snackbar');
+    window.showSnackbar('notification-snackbar');
 }
 let deferredPrompt;
 window.addEventListener('beforeinstallprompt', (e) => {

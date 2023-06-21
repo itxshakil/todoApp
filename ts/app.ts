@@ -136,10 +136,10 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 function showInstallSnackbar() {
-    showSnackbar('install-snackbar');
+    window.showSnackbar('install-snackbar');
 }
 
-function showSnackbar(snackBarId: string, delay: number = 3000, timeout = 10_000) {
+window.showSnackbar = (snackBarId: string, delay: number = 3000, timeout = 10_000)=> {
     const activeSnackbar = document.querySelector('.snackbar.show');
     activeSnackbar?.classList.remove('show');
 
@@ -153,7 +153,7 @@ function showSnackbar(snackBarId: string, delay: number = 3000, timeout = 10_000
 }
 
 function showNotificationSnackbar() {
-    showSnackbar('notification-snackbar');
+    window.showSnackbar('notification-snackbar');
 }
 
 let deferredPrompt;
