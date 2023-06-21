@@ -156,6 +156,7 @@
             });
 
             navigator.serviceWorker.addEventListener('statechange', function (e) {
+              console.log("SW statechange: ", e);
               if (e.target.state === 'activated') {
                 showSnackbar('offline-snackbar');
               }

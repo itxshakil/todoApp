@@ -35,6 +35,7 @@ self.addEventListener('activate', (e) => {
             // `claim()` sets this worker as the active worker for all clients that
             // match the workers scope and triggers an `oncontrollerchange` event for
             // the clients.
+            console.log("[ServiceWorker]  Claiming client");
             return self.clients.claim();
         })
     );
@@ -80,20 +81,19 @@ self.addEventListener('notificationclick', (event) => {
 });
 
 self.addEventListener('periodicsync', async (event) => {
+    console.log("Periodic Sync");
     if (event.tag === 'notificationSync') {
+        console.log("Notification Sync detected");
         const now = new Date();
         const startHour = 8; // Start hour (8 AM)
         const endHour = 20; // End hour (8 PM)
 
         if (now.getHours() >= startHour && now.getHours() < endHour) {
-            self.registration.showNotification('Periodic Sync Notification', {
-                body: 'This is a periodic sync notification.',
-                icon: 'path/to/notification-icon.png',
-            });
-
             if (Notification.permission === 'granted') {
+                console.log("Notification permission granted");
                 registerNotification();
             } else {
+                console.log("Notification permission not granted");
                 // try {
                 //     const permission = await Notification.requestPermission();
                 //     if (permission === 'granted') {
