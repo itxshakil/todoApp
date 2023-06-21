@@ -157,7 +157,16 @@
               registration.periodicSync.register('notificationSync', {
                 minInterval: 5 * 60 * 60 * 1000, // 5 hours
               });
-            }).catch(error => {
+
+              if (registration.installing) {
+                console.log("SW Installing!");
+              } else if (registration.waiting) {
+                console.log("SW Waiting!");
+              } else if (registration.active) {
+                console.log("SW Active!");
+              }
+            })
+            .catch(error => {
               console.log("SW Registration Failed!");
               console.log(error);
             });
