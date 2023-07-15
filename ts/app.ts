@@ -24,7 +24,9 @@ addForm.addEventListener("submit", event => {
     showHideAdditionalButtons();
 
     if (!window.matchMedia('(display-mode: standalone)').matches) {
-        showInstallSnackbar();
+        if (tasks.length > 2) {
+            showInstallSnackbar();
+        }
     } else if (Notification.permission !== 'granted' && Notification.permission !== 'denied' && tasks.length > 2) {
         showNotificationSnackbar();
     }
@@ -56,10 +58,6 @@ taskLists.addEventListener("click", event => {
             list.classList.add("completed");
         } else {
             list.classList.remove("completed");
-        }
-
-        if (!window.matchMedia('(display-mode: standalone)').matches && !document.querySelector('.snackbar.show')) {
-            showInstallSnackbar();
         }
 
         showHideAdditionalButtons();
@@ -139,7 +137,7 @@ function showInstallSnackbar() {
     window.showSnackbar('install-snackbar');
 }
 
-window.showSnackbar = (snackBarId: string, delay: number = 3000, timeout = 10_000)=> {
+window.showSnackbar = (snackBarId: string, delay: number = 3000, timeout = 10_000) => {
     const activeSnackbar = document.querySelector('.snackbar.show');
     activeSnackbar?.classList.remove('show');
 
@@ -153,7 +151,7 @@ window.showSnackbar = (snackBarId: string, delay: number = 3000, timeout = 10_00
 }
 
 function showNotificationSnackbar() {
-    window.showSnackbar('notification-snackbar');
+    window.showSnackbar('notification-snackbar', 5000);
 }
 
 let deferredPrompt;

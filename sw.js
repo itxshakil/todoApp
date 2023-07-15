@@ -1,4 +1,4 @@
-const cacheName = 'todoApp-v1.8.3';
+const cacheName = 'todoApp-v1.8.4';
 
 const filesToCache = [
     '/',
@@ -82,8 +82,8 @@ self.addEventListener('notificationclick', (event) => {
 self.addEventListener('periodicsync', async (event) => {
     if (event.tag === 'notificationSync') {
         const now = new Date();
-        const startHour = 8; // Start hour (8 AM)
-        const endHour = 20; // End hour (8 PM)
+        const startHour = 6; // Start hour (6 AM)
+        const endHour = 23; // End hour (11 PM)
 
         if (now.getHours() >= startHour && now.getHours() < endHour) {
             if (Notification.permission === 'granted') {
@@ -117,6 +117,7 @@ function registerNotification() {
     }
 
     self.registration.showNotification('Todo App', {
+        tag: 'alert',
         body: message,
         badge: '/images/apple-icon-152x152.png',
         icon: '/images/apple-icon-152x152.png',
@@ -133,5 +134,8 @@ function registerNotification() {
         data: {
             url: '/',
         },
+        requireInteraction: true,
+        vibrate: [200, 100, 200],
+        renotify: true,
     });
 }

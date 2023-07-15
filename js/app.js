@@ -19,7 +19,9 @@ addForm.addEventListener("submit", event => {
     listRenderer.display(tasks);
     showHideAdditionalButtons();
     if (!window.matchMedia('(display-mode: standalone)').matches) {
-        showInstallSnackbar();
+        if (tasks.length > 2) {
+            showInstallSnackbar();
+        }
     }
     else if (Notification.permission !== 'granted' && Notification.permission !== 'denied' && tasks.length > 2) {
         showNotificationSnackbar();
@@ -49,9 +51,6 @@ taskLists.addEventListener("click", event => {
         }
         else {
             list.classList.remove("completed");
-        }
-        if (!window.matchMedia('(display-mode: standalone)').matches && !document.querySelector('.snackbar.show')) {
-            showInstallSnackbar();
         }
         showHideAdditionalButtons();
     }
@@ -131,7 +130,7 @@ window.showSnackbar = (snackBarId, delay = 3000, timeout = 10000) => {
     }, delay);
 };
 function showNotificationSnackbar() {
-    window.showSnackbar('notification-snackbar');
+    window.showSnackbar('notification-snackbar', 5000);
 }
 let deferredPrompt;
 window.addEventListener('beforeinstallprompt', (e) => {
