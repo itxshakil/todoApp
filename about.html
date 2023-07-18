@@ -56,6 +56,27 @@
         <link rel="apple-touch-icon" href="/images/apple-icon-152x152.png" />
         <link rel="manifest" href="/app.webmanifest" />
         <link rel="stylesheet" href="/css/style.min.css" />
+        <style>
+            ul {
+                list-style: none;
+            }
+
+            h2,
+            p,
+            li {
+                margin-block-start: .5rem;
+                text-wrap: balance;
+            }
+
+            .container a {
+                text-decoration: underline;
+            }
+
+            .container a[target=_blank]::after {
+                content: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAQElEQVR42qXKwQkAIAxDUUdxtO6/RBQkQZvSi8I/pL4BoGw/XPkh4XigPmsUgh0626AjRsgxHTkUThsG2T/sIlzdTsp52kSS1wAAAABJRU5ErkJggg==);
+                margin: 0 3px 0 5px;
+            }
+        </style>
         <!-- Global site tag (gtag.js) - Google Analytics -->
         <script async src="https://www.googletagmanager.com/gtag/js?id=UA-137582152-1"></script>
         <script>(function (w, d, s, l, i) {
@@ -73,7 +94,7 @@
         <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MWPLJHM" height="0" width="0"
                 style="display:none;visibility:hidden"></iframe></noscript>
         <header>
-            <h1 class="brand-logo">About Todo App: Your Smart Task Management App</h1>
+            <h1 class="brand-logo">Todo App</h1>
         </header>
         <main>
             <div class="container">
@@ -124,7 +145,8 @@
                     <li>Share this amazing app with your friends and colleagues – spread the productivity and
                         organization.</li>
                 </ul>
-
+                <br>
+                <br>
                 <p>
                     Experience Todo App: Your Smart Task Management App – the perfect companion to simplify your to-do
                     list,
