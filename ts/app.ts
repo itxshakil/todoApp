@@ -151,7 +151,7 @@ window.showSnackbar = (snackBarId: string, delay: number = 3000, timeout = 10_00
 }
 
 function showNotificationSnackbar() {
-    window.showSnackbar('notification-snackbar', 5000);
+    window.showSnackbar('notification-snackbar', 6000);
 }
 
 let deferredPrompt;

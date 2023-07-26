@@ -341,8 +341,8 @@ footer {
   }
 
   .todo-item {
-    background-color: $primaryLight;
-    color: $fff;
+    background-color: $primaryDark;
+    color: #fff;
   }
 
   input[type="submit"] {
@@ -421,4 +421,10 @@ footer {
 .action-button:focus {
   border: 2px solid currentColor;
   box-shadow: 0 2px 4px rgba(0, 0, 0);
+}
+
+@media (display-mode: standalone) {
+  #install-snackbar {
+    display: none;
+  }
 }

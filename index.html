@@ -89,7 +89,7 @@
         </div>
         <div class="add-form">
           <form id="add-form" action="">
-            <input type="text" name="todo" id="add-input" autocomplete="off" placeholder="Add new task..." />
+            <input type="text" name="todo" id="add-input" autocomplete="off" placeholder="Add new task..." enterkeyhint="go" />
             <input type="submit" value="Add" />
           </form>
         </div>
@@ -167,7 +167,7 @@
               });
 
               if (registration.active && !window.matchMedia('(display-mode: standalone)').matches) {
-                showSnackbar('offline-snackbar');
+                showSnackbar('offline-snackbar', 6000);
               }
             })
             .catch(error => {
