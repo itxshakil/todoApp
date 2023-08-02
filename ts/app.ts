@@ -23,11 +23,11 @@ addForm.addEventListener("submit", event => {
     listRenderer.display(tasks);
     showHideAdditionalButtons();
 
-    if (!window.matchMedia('(display-mode: standalone)').matches) {
+    if (!window.matchMedia('(display-mode: standalone)').matches && !window.matchMedia('(display-mode: fullscreen)').matches) {
         if (tasks.length > 2) {
             showInstallSnackbar();
         }
-    } else if (Notification.permission !== 'granted' && Notification.permission !== 'denied' && tasks.length > 2) {
+    } else if (Notification.permission !== 'granted' && Notification.permission !== 'denied' && tasks.length > 4) {
         showNotificationSnackbar();
     }
     input.value = "";
@@ -134,7 +134,9 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 function showInstallSnackbar() {
-    window.showSnackbar('install-snackbar');
+    if (deferredPrompt) {
+        window.showSnackbar('install-snackbar');
+    }
 }
 
 window.showSnackbar = (snackBarId: string, delay: number = 3000, timeout = 10_000) => {
@@ -154,7 +156,7 @@ function showNotificationSnackbar() {
     window.showSnackbar('notification-snackbar', 6000);
 }
 
-let deferredPrompt;
+let deferredPrompt: Event | null;
 
 window.addEventListener('beforeinstallprompt', (e) => {
     e.preventDefault();

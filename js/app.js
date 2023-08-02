@@ -18,12 +18,12 @@ addForm.addEventListener("submit", event => {
     const tasks = taskManager.addTask(new Task(input.value));
     listRenderer.display(tasks);
     showHideAdditionalButtons();
-    if (!window.matchMedia('(display-mode: standalone)').matches) {
+    if (!window.matchMedia('(display-mode: standalone)').matches && !window.matchMedia('(display-mode: fullscreen)').matches) {
         if (tasks.length > 2) {
             showInstallSnackbar();
         }
     }
-    else if (Notification.permission !== 'granted' && Notification.permission !== 'denied' && tasks.length > 2) {
+    else if (Notification.permission !== 'granted' && Notification.permission !== 'denied' && tasks.length > 4) {
         showNotificationSnackbar();
     }
     input.value = "";
@@ -116,7 +116,9 @@ document.addEventListener("DOMContentLoaded", () => {
     showHideAdditionalButtons();
 });
 function showInstallSnackbar() {
-    window.showSnackbar('install-snackbar');
+    if (deferredPrompt) {
+        window.showSnackbar('install-snackbar');
+    }
 }
 window.showSnackbar = (snackBarId, delay = 3000, timeout = 10000) => {
     const activeSnackbar = document.querySelector('.snackbar.show');
@@ -130,7 +132,7 @@ window.showSnackbar = (snackBarId, delay = 3000, timeout = 10000) => {
     }, delay);
 };
 function showNotificationSnackbar() {
-    window.showSnackbar('notification-snackbar', 5000);
+    window.showSnackbar('notification-snackbar', 6000);
 }
 let deferredPrompt;
 window.addEventListener('beforeinstallprompt', (e) => {
