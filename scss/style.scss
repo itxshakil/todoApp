@@ -116,8 +116,8 @@ form#searchForm {
   display: flex;
   gap: 10px;
   word-break: break-word;
-  justify-content: space-between;
-  align-items: baseline;
+  // justify-content: space-between;
+  align-items: center;
   padding: 10px;
   border: 1px solid $primaryColor;
   margin-top: 5px;
