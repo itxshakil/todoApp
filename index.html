@@ -166,8 +166,12 @@
                 minInterval: 5 * 60 * 60 * 1000, // 5 hours
               });
 
-              if (registration.active && !window.matchMedia('(display-mode: standalone)').matches) {
+              const hasSeenSnackbar = localStorage.getItem('hasSeenOfflineSnackbar');
+        
+              if (registration.active && !window.matchMedia('(display-mode: standalone)').matches && !hasSeenSnackbar) {
                 showSnackbar('offline-snackbar', 6000);
+                
+                localStorage.setItem('hasSeenOfflineSnackbar', 'true');
               }
             })
             .catch(error => {
