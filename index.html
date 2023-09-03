@@ -166,13 +166,14 @@
                 minInterval: 5 * 60 * 60 * 1000, // 5 hours
               });
 
-              const hasSeenSnackbar = localStorage.getItem('hasSeenOfflineSnackbar');
-        
-              if (registration.active && !window.matchMedia('(display-mode: standalone)').matches && !hasSeenSnackbar) {
-                showSnackbar('offline-snackbar', 6000);
-                
-                localStorage.setItem('hasSeenOfflineSnackbar', 'true');
-              }
+              // No service worker installed yet
+              const hasController = !!navigator.serviceWorker.controller;
+
+              navigator.serviceWorker.addEventListener('controllerchange', () => {
+                if(!hasController){
+                  showSnackbar('offline-snackbar', 6000);
+                }
+              });
             })
             .catch(error => {
               console.log("SW Registration Failed!");
