@@ -74,7 +74,6 @@ input[type="text"] {
   width: 100%;
   max-width: 360px;
   text-align: center;
-  border-radius: 3px;
   border-radius: 999px;
 }
 
@@ -103,7 +102,7 @@ form#searchForm {
 }
 .todos-title {
   display: inline-block;
-  padding: 0rem 0.5rem;
+  padding: 0 0.5rem;
   border-bottom: 2px solid $primaryColor;
   margin-bottom: 1rem;
 }
@@ -148,7 +147,7 @@ label[data-link="true"] {
   text-decoration: underline dotted white;
 }
 
-li.completed {
+li:has(input:checked) {
   filter: opacity(50%);
 
   label {
@@ -182,6 +181,7 @@ li.completed {
 .no-task + .footer > button {
   display: none;
 }
+
 #clearCompleted,
 #markAsCompleted {
   transition: visibility 1s ease-in-out;
