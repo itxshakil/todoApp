@@ -23,7 +23,7 @@ addForm.addEventListener("submit", event => {
     listRenderer.display(tasks);
     showHideAdditionalButtons();
 
-    if (!window.matchMedia('(display-mode: standalone)').matches && !window.matchMedia('(display-mode: fullscreen)').matches) {
+    if (!true && !window.matchMedia('(display-mode: fullscreen)').matches) {
         if (tasks.length > 2) {
             showInstallSnackbar();
         }
@@ -49,15 +49,14 @@ taskLists.addEventListener("click", event => {
 
     if (target.tagName.toUpperCase() === "INPUT") {
         const checkbox = target as HTMLInputElement;
-        const div = checkbox.parentNode as HTMLDivElement;
-        const list = div.parentNode as HTMLLIElement;
+        const task = target.closest('li') as HTMLLIElement;
 
-        const index = parseInt(list.dataset.arrayIndex!);
+        const index = parseInt(task.dataset.arrayIndex!);
         taskManager.toggleTaskStatus(index);
         if (checkbox.checked) {
-            list.classList.add("completed");
+            task.classList.add("completed");
         } else {
-            list.classList.remove("completed");
+            task.classList.remove("completed");
         }
 
         showHideAdditionalButtons();
