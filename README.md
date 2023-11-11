@@ -16,10 +16,8 @@ Make sure you have TypeScript installed on your machine. If TypeScript is not in
 
 ```shell
 npm install -g typescript
-
-```shell
 tsc
-
+```
 
 ## Features
 
