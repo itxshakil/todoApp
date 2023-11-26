@@ -128,7 +128,7 @@ function registerNotification() {
             },
             {
                 action: 'close',
-                title: 'Close notification',
+                title: 'No Thanks',
             }
         ],
         data: {
