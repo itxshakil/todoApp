@@ -18,7 +18,7 @@ addForm.addEventListener("submit", event => {
     const tasks = taskManager.addTask(new Task(input.value));
     listRenderer.display(tasks);
     showHideAdditionalButtons();
-    if (!true && !window.matchMedia('(display-mode: fullscreen)').matches) {
+    if (!isAppInstalled()) {
         if (tasks.length > 2) {
             showInstallSnackbar();
         }
@@ -28,6 +28,15 @@ addForm.addEventListener("submit", event => {
     }
     input.value = "";
 });
+function isAppInstalled() {
+    if ('standalone' in navigator && navigator.standalone) {
+        return true;
+    }
+    if (window.matchMedia('(display-mode: standalone)').matches) {
+        return true;
+    }
+    return false;
+}
 taskLists.addEventListener("dblclick", event => {
     const target = event.target;
     if (target.tagName == "LI") {
@@ -76,7 +85,7 @@ search.addEventListener("keyup", event => {
     }
     const lists = document.getElementsByTagName("li");
     Array.from(lists).forEach(item => {
-        const taskContainer = item.firstChild;
+        const taskContainer = item.querySelector('label');
         const task = taskContainer.textContent;
         if (task.toLowerCase().includes(searchValue)) {
             item.classList.remove("hidden");

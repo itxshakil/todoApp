@@ -23,7 +23,7 @@ addForm.addEventListener("submit", event => {
     listRenderer.display(tasks);
     showHideAdditionalButtons();
 
-    if (!true && !window.matchMedia('(display-mode: fullscreen)').matches) {
+    if (!isAppInstalled()) {
         if (tasks.length > 2) {
             showInstallSnackbar();
         }
@@ -32,6 +32,18 @@ addForm.addEventListener("submit", event => {
     }
     input.value = "";
 });
+// Function to check if the app is already installed
+function isAppInstalled() {
+    // Check the navigator.standalone property for iOS devices
+    if ('standalone' in navigator && navigator.standalone) {
+        return true;
+    }
+    // Check the display-mode media query for Android devices
+    if (window.matchMedia('(display-mode: standalone)').matches) {
+        return true;
+    }
+    return false;
+}
 
 taskLists.addEventListener("dblclick", event => {
     const target = event.target as HTMLLIElement;
@@ -88,7 +100,7 @@ search.addEventListener("keyup", event => {
     const lists = document.getElementsByTagName("li") as HTMLCollection;
 
     Array.from(lists).forEach(item => {
-        const taskContainer = item.firstChild as HTMLDivElement;
+        const taskContainer = item.querySelector('label') as HTMLLabelElement;
         const task = taskContainer.textContent!;
 
         if (task.toLowerCase().includes(searchValue)) {
