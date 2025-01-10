@@ -1,0 +1,4 @@
+User-agent: *
+Disallow:
+
+Sitemap: https://todo.shakiltech.com/sitemap.xml
