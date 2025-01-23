@@ -169,9 +169,22 @@
         if ("serviceWorker" in navigator) {
           navigator.serviceWorker.register("sw.js")
             .then(registration => {
-              registration.periodicSync.register('notificationSync', {
-                minInterval: 5 * 60 * 60 * 1000, // 5 hours
-              });
+              // Check if periodicSync is supported
+                if ('periodicSync' in registration) {
+                    // Wait for the Service Worker to be activated before registering periodic sync
+                    navigator.serviceWorker.ready.then(() => {
+                        registration.periodicSync
+                            .register('notificationSync', { minInterval: 5 * 60 * 60 * 1000 }) // 5 hours
+                            .then(() => {
+                                console.log("Periodic Sync registered successfully!");
+                            })
+                            .catch(err => {
+                                console.error("Periodic Sync registration failed:", err.message);
+                            });
+                    });
+                } else {
+                    console.warn("Periodic Sync is not supported in this browser.");
+                }
 
               // No service worker installed yet
               const hasController = !!navigator.serviceWorker.controller;
