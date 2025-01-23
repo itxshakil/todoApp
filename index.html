@@ -144,7 +144,9 @@
     <script src="js/app.js" type="module"></script>
     <script>
       setTimeout(() => {
-          showSnackbar('notification-snackbar', 10000); // Show for 10 seconds
+          if ('Notification' in window && Notification.permission === 'default') {
+             showSnackbar('notification-snackbar', 10000); // Show for 10 seconds
+          }
       }, 15000);
     </script>
     <script>
