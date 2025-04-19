@@ -1,11 +1,11 @@
-const cacheName = 'todoApp-v1.8.11';
+const cacheName = 'todoApp-v1.8.12';
 
 const filesToCache = [
     '/',
     '/index.html',
     'index.html?source=pwa',
     'index.html?source=shortcut',
-    '/css/style.min.css',
+    '/css/style.css',
     '/js/app.js',
     '/js/classes/ListTemplate.js',
     '/js/classes/Storage.js',
@@ -64,59 +64,114 @@ self.addEventListener('fetch', (e) => {
     }));
 });
 
-// on notificationclick event. if event action is close then close either open the home url
 self.addEventListener('notificationclick', (event) => {
-    if (event.action === 'close') {
-        event.notification.close();
-    } else {
-        event.waitUntil(clients.matchAll({
-            type: 'window',
-        }).then((clientList) => {
-            if (clients.openWindow) {
-                return clients.openWindow('/');
+    const action = event.action || 'default';
+    const tag = event.notification.tag || 'general';
+
+    event.notification.close();
+
+    event.waitUntil(
+        clients.matchAll({ type: 'window', includeUncontrolled: true }).then((clientList) => {
+            clientList.forEach((client) => {
+                client.postMessage({
+                    type: 'notification_clicked',
+                    tag,
+                    action,
+                    timestamp: Date.now(),
+                });
+            });
+
+            if (action !== 'close') {
+                return clients.openWindow(event.notification.data?.url || '/');
             }
-        }));
-    }
+        })
+    );
 });
+
 
 self.addEventListener('periodicsync', async (event) => {
     if (event.tag === 'notificationSync') {
-        const now = new Date();
-        const startHour = 6; // Start hour (6 AM)
-        const endHour = 23; // End hour (11 PM)
-
-        if (now.getHours() >= startHour && now.getHours() < endHour) {
-            if (Notification.permission === 'granted') {
-                registerNotification();
-            } else {
-                // try {
-                //     const permission = await Notification.requestPermission();
-                //     if (permission === 'granted') {
-                //         registerNotification();
-                //     } else {
-                //         alert('You need to allow push notifications.');
-                //     }
-                // } catch (e) {
-                //     console.log(e);
-                // }
-            }
+        if (Notification.permission === 'granted') {
+            registerNotification();
         }
     }
 });
 
 function registerNotification() {
-    let message = "Good Morning, Time to plan your day";
-
     const now = new Date();
-    if (now.getHours() >= 12 && now.getHours() < 16) {
-        message = "Good Afternoon, Please update your tasks";
-    } else if (now.getHours() >= 16 && now.getHours() < 20) {
-        message = "Good Evening, Please update your tasks";
-    } else {
-        message = "Good Night, Time to plan your tomorrow and sleep";
+    const hour = now.getHours();
+    const day = now.getDay();
+    const SUNDAY = 0;
+    const SATURDAY = 6;
+    const isWeekend = day === SUNDAY || day === SATURDAY;
+
+    const messages = {
+        earlyMorning: isWeekend
+            ? [
+                "Weekend boost! Add something fun or relaxing to your list 🎉",
+                "Slow and steady — any small plans for today?",
+            ]
+            : [
+                "Rise and shine! What's the game plan today? ☀️",
+                "Good morning! Take 60 seconds to set your priorities 📝",
+                "Let's set a positive tone — update your tasks for today ✅"
+            ],
+        midMorning: isWeekend
+            ? [
+                "What’s your vibe today? Organize it in your list ✨",
+                "Quick note: add anything exciting to your plans?",
+            ]
+            : [
+                "How’s your day shaping up? Need to refocus?",
+                "Quick check-in: knock out those tasks 💪",
+                "Feeling productive? Your list is waiting!"
+            ],
+        afternoon: isWeekend
+            ? [
+                "Got something halfway done? Wrap it up like a pro 🎯",
+                "Afternoon feels — make sure your plans are on track 🧘",
+            ]
+            : [
+                "Keep the momentum going — review your task list ✅",
+                "Midday check-in: what’s still pending?",
+                "You’re crushing it! Just a few things left to tackle 💥"
+            ],
+        evening: isWeekend
+            ? [
+                "Evening already? A quick review won’t hurt 😌",
+                "Wanna get ahead for tomorrow? Start now 👣",
+            ]
+            : [
+                "Evening calm? Time to wrap up and reflect 🌇",
+                "Set yourself up for a smooth tomorrow 🎯",
+                "A quick list update before bed can do wonders 💤"
+            ],
+        night: [
+            "Before bed: anything to plan for tomorrow? 🌙",
+            "Tomorrow’s peace starts with tonight’s plan 🧠",
+            "Wind down with clarity — prep your next move 🛏️"
+        ]
+    };
+
+    function getRandomMessage(group) {
+        return group[Math.floor(Math.random() * group.length)];
     }
 
-    self.registration.showNotification('Todo App', {
+    let selectedGroup = messages.night; // default
+
+    if (hour >= 6 && hour < 9) {
+        selectedGroup = messages.earlyMorning;
+    } else if (hour >= 9 && hour < 12) {
+        selectedGroup = messages.midMorning;
+    } else if (hour >= 12 && hour < 16) {
+        selectedGroup = messages.afternoon;
+    } else if (hour >= 16 && hour < 21) {
+        selectedGroup = messages.evening;
+    }
+
+    const message = getRandomMessage(selectedGroup);
+
+    self.registration.showNotification('📝 Todo App Reminder', {
         tag: 'alert',
         body: message,
         badge: '/images/apple-icon-152x152.png',
@@ -124,11 +179,11 @@ function registerNotification() {
         actions: [
             {
                 action: 'open',
-                title: 'Open app',
+                title: 'Open App',
             },
             {
                 action: 'close',
-                title: 'No Thanks',
+                title: 'Maybe Later',
             }
         ],
         data: {
@@ -139,3 +194,4 @@ function registerNotification() {
         renotify: true,
     });
 }
+

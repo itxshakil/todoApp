@@ -1,222 +1,241 @@
 <!DOCTYPE html>
 <html lang="en">
 
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <title>My Smart Task Management App</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta name="description"
-      content="Todo is your agile, offline-friendly ToDo app! No internet? No problem! Enjoy speed, privacy, and style. Organize effortlessly!" />
-    <meta name="title" content="My Smart Task Management App" />
+          content="Todo is your agile, offline-friendly ToDo app! No internet? No problem! Enjoy speed, privacy, and style. Organize effortlessly!"/>
+    <meta name="title" content="My Smart Task Management App"/>
     <meta name="keywords"
-      content="todo App , task , todo offline , todo pwa, shakil alam ,todo appp , javascript project" />
-    <meta name="subject" content="My Smart Task Management App" />
-    <meta name="language" content="en" />
-    <meta name="rating" content="General" />
-    <meta name="url" content="https://todo.shakiltech.com" />
-    <meta name="identifier-URL" content="https://todo.shakiltech.com" />
-    <meta name="owner" content="Shakil Alam" />
-    <meta name="author" content="Shakil Alam , itxshakil@gmail.com" />
-    <meta name="og:title" content="My Smart Task Management App" />
-    <meta name="og:url" content="https://todo.shakiltech.com" />
-    <meta name="og:image" content="https://todo.shakiltech.com/images/android/android-launchericon-144-144.png" />
+          content="todo App , task , todo offline , todo pwa, shakil alam ,todo appp , javascript project"/>
+    <meta name="subject" content="My Smart Task Management App"/>
+    <meta name="language" content="en"/>
+    <meta name="rating" content="General"/>
+    <meta name="url" content="https://todo.shakiltech.com"/>
+    <meta name="identifier-URL" content="https://todo.shakiltech.com"/>
+    <meta name="owner" content="Shakil Alam"/>
+    <meta name="author" content="Shakil Alam , itxshakil@gmail.com"/>
+    <meta name="og:title" content="My Smart Task Management App"/>
+    <meta name="og:url" content="https://todo.shakiltech.com"/>
+    <meta name="og:image" content="https://todo.shakiltech.com/images/android/android-launchericon-144-144.png"/>
     <meta name="og:description"
-      content="Todo is your agile, offline-friendly ToDo app! No internet? No problem! Enjoy speed, privacy, and style. Organize effortlessly!" />
-    <meta name="og:site_name" content="My Smart Task Management App" />
-    <meta name="og:locale" content="en_US" />
-    <meta name="og:type" content="website" />
-    <meta name="og:country-name" content="India" />
-    <meta name="twitter:title" content="My Smart Task Management App" />
+          content="Todo is your agile, offline-friendly ToDo app! No internet? No problem! Enjoy speed, privacy, and style. Organize effortlessly!"/>
+    <meta name="og:site_name" content="My Smart Task Management App"/>
+    <meta name="og:locale" content="en_US"/>
+    <meta name="og:type" content="website"/>
+    <meta name="og:country-name" content="India"/>
+    <meta name="twitter:title" content="My Smart Task Management App"/>
     <meta name="twitter:description"
-      content="Todo is your agile, offline-friendly ToDo app! No internet? No problem! Enjoy speed, privacy, and style. Organize effortlessly!" />
-    <meta name="twitter:image" content="https://todo.shakiltech.com/images/android/android-launchericon-144-144.png" />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:creator" content="@itxshakil" />
-    <meta name="twitter:url" content="https://todo.shakiltech.com" />
-    <meta name="twitter:domain" content="https://todo.shakiltech.com" />
-    <meta name="twitter:label1" content="Developed by" />
-    <meta name="twitter:data1" content="Shakil Alam" />
-    <meta name="twitter:app:country" content="IN" />
-    <meta name="og:site_name" content="My Smart Task Management App" />
-    <meta name="msapplication-TitleImage" content="/images/android/android-launchericon-144-144.png" />
-    <meta name="color-scheme" content="light dark" />
+          content="Todo is your agile, offline-friendly ToDo app! No internet? No problem! Enjoy speed, privacy, and style. Organize effortlessly!"/>
+    <meta name="twitter:image" content="https://todo.shakiltech.com/images/android/android-launchericon-144-144.png"/>
+    <meta name="twitter:card" content="summary_large_image"/>
+    <meta name="twitter:creator" content="@itxshakil"/>
+    <meta name="twitter:url" content="https://todo.shakiltech.com"/>
+    <meta name="twitter:domain" content="https://todo.shakiltech.com"/>
+    <meta name="twitter:label1" content="Developed by"/>
+    <meta name="twitter:data1" content="Shakil Alam"/>
+    <meta name="twitter:app:country" content="IN"/>
+    <meta name="og:site_name" content="My Smart Task Management App"/>
+    <meta name="msapplication-TitleImage" content="/images/android/android-launchericon-144-144.png"/>
+    <meta name="color-scheme" content="light dark"/>
     <link rel="apple-touch-icon" sizes="60x60" href="/images/windows10/Square44x44Logo.targetsize-60.png">
     <link rel="apple-touch-icon" sizes="72x72" href="/images/windows10/Square44x44Logo.targetsize-72.png">
     <link rel="apple-touch-icon" sizes="144x144" href="/images/android/android-launchericon-144-144.png">
     <link rel="icon" type="image/png" sizes="192x192" href="/images/msteams/msteams-192-192.png">
     <link rel="icon" type="image/png" sizes="32x32"
-      href="/images/windows10/Square44x44Logo.altform-unplated_targetsize-32.png">
+          href="/images/windows10/Square44x44Logo.altform-unplated_targetsize-32.png">
     <link rel="icon" type="image/png" sizes="96x96" href="/images/windows10/Square44x44Logo.targetsize-96.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/images/windows10/Square44x44Logo.targetsize-16.png">
     <meta name="msapplication-TileImage" content="/images/android/android-launchericon-144-144.png">
-    <meta name="msapplication-TitleColor" content="#2b479d;" />
-    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
-    <link rel="apple-touch-icon" href="/images/apple-icon-152x152.png" />
-    <link rel="manifest" href="/app.webmanifest" />
-    <link rel="stylesheet" href="/css/style.min.css" />
+    <meta name="msapplication-TitleColor" content="#2b479d;"/>
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon"/>
+    <link rel="apple-touch-icon" href="/images/apple-icon-152x152.png"/>
+    <link rel="manifest" href="/app.webmanifest"/>
+    <link rel="stylesheet" href="/css/style.min.css"/>
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-137582152-1"></script>
     <script>(function (w, d, s, l, i) {
-        w[l] = w[l] || []; w[l].push({
-          'gtm.start':
-            new Date().getTime(), event: 'gtm.js'
-        }); var f = d.getElementsByTagName(s)[0],
-          j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
-            'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
-      })(window, document, 'script', 'dataLayer', 'GTM-MWPLJHM');
+        w[l] = w[l] || [];
+        w[l].push({
+            'gtm.start':
+                new Date().getTime(), event: 'gtm.js'
+        });
+        var f = d.getElementsByTagName(s)[0],
+            j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : '';
+        j.async = true;
+        j.src =
+            'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+        f.parentNode.insertBefore(j, f);
+    })(window, document, 'script', 'dataLayer', 'GTM-MWPLJHM');
     </script>
-  </head>
+</head>
 
-  <body>
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MWPLJHM" height="0" width="0"
-        style="display:none;visibility:hidden"></iframe></noscript>
-    <header class="header">
-      <h1 class="brand-logo">To Do App</h1>
-      <form action="" id="searchForm">
-        <input type="text" id="search" title="Search tasks..." name="search" placeholder="Search tasks..." />
-      </form>
-    </header>
-    <main>
-      <div class="container">
+<body>
+<noscript>
+    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MWPLJHM" height="0" width="0"
+            style="display:none;visibility:hidden"></iframe>
+</noscript>
+<header class="header">
+    <h1 class="brand-logo">To Do App</h1>
+    <form action="" id="searchForm">
+        <input type="text" id="search" title="Search tasks..." name="search" placeholder="Search tasks..."/>
+    </form>
+</header>
+<main>
+    <div class="container">
         <div class="todos">
-          <h3 class="todos-title">My Tasks</h3>
-          <ul id="tasks-list"></ul>
-          <div class="footer">
-            <button id="clearCompleted">Clear completed</button>
-            <button id="markAsCompleted">Mark all as completed</button>
-          </div>
+            <h3 class="todos-title">My Tasks</h3>
+            <ul id="tasks-list"></ul>
+            <div class="footer">
+                <button id="clearCompleted">Clear completed</button>
+                <button id="markAsCompleted">Mark all as completed</button>
+            </div>
         </div>
         <div class="add-form">
-          <form id="add-form" action="">
-            <input type="text" name="todo" id="add-input" autocomplete="off" placeholder="Add new task..." enterkeyhint="go" />
-            <input type="submit" value="Add" />
-          </form>
+            <form id="add-form" action="">
+                <label for="add-input" class="sr-only"></label>
+                <input type="text" name="todo" id="add-input" autocomplete="off" placeholder="Add new task..."
+                       enterkeyhint="go"/>
+                <input type="submit" value="Add"/>
+            </form>
         </div>
-      </div>
-    </main>
-    <footer class="page-footer grey  darken-4 center">
-      <div class="white-text text-darken-5">
+    </div>
+</main>
+<footer class="page-footer grey  darken-4 center">
+    <div class="white-text text-darken-5">
         <div class="footer-links">
-          <a href="about.html">About App</a>
-          <a href="faq.html">FAQ</a>
-          <a href="https://github.com/itxshakil/todoApp">Report an issue</a>
+            <a href="about.html">About App</a>
+            <a href="faq.html">FAQ</a>
+            <a href="https://github.com/itxshakil/todoApp">Report an issue</a>
         </div>
         <p>Developed with <span style="color:red">♥</span> By
-          <a class="white-text" href="https://shakiltech.com">Shakil Alam</a>
+            <a class="white-text" href="https://shakiltech.com">Shakil Alam</a>
         </p>
-      </div>
-    </footer>
+    </div>
+</footer>
 
-    <div class="snackbar" id="offline-snackbar">
-      <h3 class="snackbar-title">You can now use this app offline too!</h3>
-      <div class="snackbar-content">
+<div class="snackbar" id="offline-snackbar">
+    <h3 class="snackbar-title">You can now use this app offline too!</h3>
+    <div class="snackbar-content">
         <p>You can now add tasks and view them even offline.
-          Try it out!</p>
+            Try it out!</p>
         <div class="action-buttons">
-          <button onclick="dismissSnackbar()" class="dismiss-button">Dismiss</button>
+            <button onclick="dismissSnackbar()" class="dismiss-button">Dismiss</button>
         </div>
-      </div>
     </div>
+</div>
 
-    <div class="snackbar" id="install-snackbar">
-      <h3 class="snackbar-title">Install Our Website for the Best Experience!</h3>
-      <div class="snackbar-content">
+<div class="snackbar" id="install-snackbar">
+    <h3 class="snackbar-title">Install Our Website for the Best Experience!</h3>
+    <div class="snackbar-content">
         <p>Get faster load times and push notifications by installing our website as an app. Takes up almost no storage.
-          Install now!</p>
+            Install now!</p>
         <div class="action-buttons">
-          <button onclick="window.showInstallPromotion()" class="action-button">Install Now</button>
-          <button onclick="dismissSnackbar()" class="dismiss-button">Dismiss</button>
+            <button onclick="window.showInstallPromotion()" class="action-button">Install Now</button>
+            <button onclick="dismissSnackbar()" class="dismiss-button">Dismiss</button>
         </div>
-      </div>
     </div>
+</div>
 
-    <div class="snackbar" id="notification-snackbar">
-      <h3 class="snackbar-title">Enable Notifications for the Best Experience!</h3>
-      <div class="snackbar-content">
+<div class="snackbar" id="notification-snackbar">
+    <h3 class="snackbar-title">Enable Notifications for the Best Experience!</h3>
+    <div class="snackbar-content">
         <p>Stay updated with important notifications and never miss a task. Enable browser notifications now!</p>
         <div class="action-buttons">
-          <button onclick="enableNotifications()" class="action-button">Enable Notifications</button>
-          <button onclick="dismissSnackbar()" class="dismiss-button">Dismiss</button>
+            <button onclick="enableNotifications()" class="action-button">Enable Notifications</button>
+            <button onclick="dismissSnackbar()" class="dismiss-button">Dismiss</button>
         </div>
-      </div>
     </div>
-    <script src="js/app.js" type="module"></script>
-    <script>
-      setTimeout(() => {
-          if ('Notification' in window && Notification.permission === 'default') {
-             showSnackbar('notification-snackbar', 10000); // Show for 10 seconds
-          }
-      }, 15000);
-    </script>
-    <script>
-      window.onload = () => {
+</div>
+<script src="js/app.js" type="module"></script>
+<script>
+    setTimeout(() => {
+        if ('Notification' in window && Notification.permission === 'default') {
+            showSnackbar('notification-snackbar', 10000); // Show for 10 seconds
+        }
+    }, 15000);
+</script>
+<script>
+    window.onload = () => {
         "use strict";
         /**
-        * Warn the page must be served over HTTPS
-        * The `beforeinstallprompt` event won't fire if the page is served over HTTP.
-        * Installability requires a service worker with a fetch event handler, and
-        * if the page isn't served over HTTPS, the service worker won't load.
-        *
-        * Except localhost or 127.0.0.1 (testing/local environment)
-        */
+         * Warn the page must be served over HTTPS
+         * The `beforeinstallprompt` event won't fire if the page is served over HTTP.
+         * Installability requires a service worker with a fetch event handler, and
+         * if the page isn't served over HTTPS, the service worker won't load.
+         *
+         * Except localhost or 127.0.0.1 (testing/local environment)
+         */
         if (window.location.protocol === 'http:' && window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
-          const link = document.createElement('a');
-          link.href = window.location.href.replace('http://', 'https://');
-          document.querySelector('body')?.appendChild(link);
-          link.click();
+            const link = document.createElement('a');
+            link.href = window.location.href.replace('http://', 'https://');
+            document.querySelector('body')?.appendChild(link);
+            link.click();
         }
         if ("serviceWorker" in navigator) {
-          navigator.serviceWorker.register("sw.js")
-            .then(registration => {
-              let serviceWorker = registration.installing || registration.waiting || registration.active;
+            navigator.serviceWorker.register("sw.js")
+                .then(registration => {
+                    let serviceWorker = registration.installing || registration.waiting || registration.active;
 
-              if (serviceWorker) {
-                  console.log('Service Worker state:', serviceWorker.state);
-                  serviceWorker.addEventListener('statechange', (e) => {
-                      console.log('Service Worker state:', e.target.state);
-  
-                      if (e.target.state === 'activated') {
-                          console.log('Service Worker activated');
-                          if ('periodicSync' in registration) {
-                    // Wait for the Service Worker to be activated before registering periodic sync
-                    navigator.serviceWorker.ready.then(() => {
-                        registration.periodicSync
-                            .register('notificationSync', { minInterval: 5 * 60 * 60 * 1000 }) // 5 hours
-                            .then(() => {
-                                console.log("Periodic Sync registered successfully!");
-                            })
-                            .catch(err => {
-                                console.error("Periodic Sync registration failed:", err.message);
-                            });
+                    if (serviceWorker) {
+                        console.log('Service Worker state:', serviceWorker.state);
+                        serviceWorker.addEventListener('statechange', (e) => {
+                            console.log('Service Worker state:', e.target.state);
+
+                            if (e.target.state === 'activated') {
+                                console.log('Service Worker activated');
+                                if ('periodicSync' in registration) {
+                                    // Wait for the Service Worker to be activated before registering periodic sync
+                                    navigator.serviceWorker.ready.then(() => {
+                                        registration.periodicSync
+                                            .register('notificationSync', {minInterval: 5 * 60 * 60 * 1000}) // 5 hours
+                                            .then(() => {
+                                                console.log("Periodic Sync registered successfully!");
+                                            })
+                                            .catch(err => {
+                                                console.error("Periodic Sync registration failed:", err.message);
+                                            });
+                                    });
+                                } else {
+                                    console.warn("Periodic Sync is not supported in this browser.");
+                                }
+                            }
+                        });
+                    }
+
+                    // No service worker installed yet
+                    const hasController = !!navigator.serviceWorker.controller;
+
+                    navigator.serviceWorker.addEventListener('controllerchange', () => {
+                        if (!hasController) {
+                            showSnackbar('offline-snackbar', 6000);
+                        }
                     });
-                } else {
-                    console.warn("Periodic Sync is not supported in this browser.");
-                }
-                      }
-                  });
-              }
-              // Check if periodicSync is supported
-                
+                })
+                .catch(error => {
+                    console.log("SW Registration Failed!");
+                    console.log(error);
+                });
 
-              // No service worker installed yet
-              const hasController = !!navigator.serviceWorker.controller;
-
-              navigator.serviceWorker.addEventListener('controllerchange', () => {
-                if(!hasController){
-                  showSnackbar('offline-snackbar', 6000);
+            navigator.serviceWorker.addEventListener('message', (event) => {
+                if (event.data?.type === 'notification_clicked') {
+                    gtag('event', 'notification_clicked', {
+                        event_category: 'engagement',
+                        event_label: event.data.tag,
+                        value: 1,
+                        action: event.data.action,
+                        timestamp: event.data.timestamp,
+                    });
                 }
-              });
-            })
-            .catch(error => {
-              console.log("SW Registration Failed!");
-              console.log(error);
             });
         }
-      };
-    </script>
-    <script type="application/ld+json">
-      {
+    };
+</script>
+<script type="application/ld+json">
+    {
         "@context": "https://schema.org",
         "@type": "SoftwareApplication",
         "name": "My Smart Task Management App",
@@ -226,43 +245,43 @@
         "applicationCategory": "Productivity",
         "operatingSystem": "Cross-platform",
         "author": {
-          "@type": "Person",
-          "name": "Shakil Alam",
-          "email": "itxshakil@gmail.com",
-          "sameAs": [
-            "https://shakiltech.com",
-            "https://twitter.com/itxshakil",
-            "https://www.linkedin.com/in/itxshakil",
-            "https://github.com/itxshakil"
-          ]
+            "@type": "Person",
+            "name": "Shakil Alam",
+            "email": "itxshakil@gmail.com",
+            "sameAs": [
+                "https://shakiltech.com",
+                "https://twitter.com/itxshakil",
+                "https://www.linkedin.com/in/itxshakil",
+                "https://github.com/itxshakil"
+            ]
         },
         "featureList": [
-          "Offline usability",
-          "Dark mode support",
-          "Notification functionality",
-          "Privacy-friendly (no data sent to servers)",
-          "Shortcuts and badge support",
-          "Cross-platform compatibility"
+            "Offline usability",
+            "Dark mode support",
+            "Notification functionality",
+            "Privacy-friendly (no data sent to servers)",
+            "Shortcuts and badge support",
+            "Cross-platform compatibility"
         ],
         "offers": {
-          "@type": "Offer",
-          "price": "0",
-          "priceCurrency": "USD",
-          "availability": "https://schema.org/InStock",
-          "seller": {
-            "@type": "Organization",
-            "name": "ShakilTech"
-          }
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD",
+            "availability": "https://schema.org/InStock",
+            "seller": {
+                "@type": "Organization",
+                "name": "ShakilTech"
+            }
         },
         "aggregateRating": {
-          "@type": "AggregateRating",
-          "ratingValue": "4.5",
-          "bestRating": "5",
-          "ratingCount": "31"
+            "@type": "AggregateRating",
+            "ratingValue": "4.5",
+            "bestRating": "5",
+            "ratingCount": "31"
         }
-      }
-      </script>
+    }
+</script>
 
-  </body>
+</body>
 
 </html>
