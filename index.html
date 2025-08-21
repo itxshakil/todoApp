@@ -201,6 +201,13 @@
                                     });
                                 } else {
                                     console.warn("Periodic Sync is not supported in this browser.");
+                                    if ('sync' in registration) {
+                                        navigator.serviceWorker.ready.then(() => {
+                                            registration.sync.register('notificationSync')
+                                                .then(() => console.log('Background Sync registered as fallback'))
+                                                .catch(err => console.warn('Background Sync registration failed:', err?.message || err));
+                                        });
+                                    }
                                 }
                             }
                         });

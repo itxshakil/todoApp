@@ -1,4 +1,4 @@
-const cacheName = 'todoApp-v1.8.13';
+const cacheName = 'todoApp-v1.8.14';
 
 const filesToCache = [
     '/',
@@ -18,6 +18,45 @@ const filesToCache = [
     '/js/share.js',
 ];
 
+// ---- Simple IndexedDB key-value helpers (for SW only) ----
+const DB_NAME = 'todo-app-sw';
+const DB_VERSION = 1;
+const STORE = 'meta';
+
+function openDb() {
+    return new Promise((resolve, reject) => {
+        const req = indexedDB.open(DB_NAME, DB_VERSION);
+        req.onupgradeneeded = () => {
+            const db = req.result;
+            if (!db.objectStoreNames.contains(STORE)) {
+                db.createObjectStore(STORE);
+            }
+        };
+        req.onsuccess = () => resolve(req.result);
+        req.onerror = () => reject(req.error);
+    });
+}
+
+async function idbSet(key, value) {
+    const db = await openDb();
+    return new Promise((resolve, reject) => {
+        const tx = db.transaction(STORE, 'readwrite');
+        tx.objectStore(STORE).put(value, key);
+        tx.oncomplete = () => resolve(true);
+        tx.onerror = () => reject(tx.error);
+    });
+}
+
+async function idbGet(key) {
+    const db = await openDb();
+    return new Promise((resolve, reject) => {
+        const tx = db.transaction(STORE, 'readonly');
+        const req = tx.objectStore(STORE).get(key);
+        req.onsuccess = () => resolve(req.result);
+        req.onerror = () => reject(req.error);
+    });
+}
+
 // Start the service worker and cache all of the app's content
 self.addEventListener('install', (e) => {
     e.waitUntil(caches.open(cacheName).then((cache) => cache.addAll(filesToCache)));
@@ -32,9 +71,6 @@ self.addEventListener('activate', (e) => {
                 }
             }));
         }).then(function () {
-            // `claim()` sets this worker as the active worker for all clients that
-            // match the workers scope and triggers an `oncontrollerchange` event for
-            // the clients.
             return self.clients.claim();
         })
     );
@@ -88,110 +124,128 @@ self.addEventListener('notificationclick', (event) => {
     );
 });
 
-
-self.addEventListener('periodicsync', async (event) => {
-    if (event.tag === 'notificationSync') {
-        if (Notification.permission === 'granted') {
-            registerNotification();
-        }
+// Receive pending summary and last-notify updates from the page
+self.addEventListener('message', (event) => {
+    const data = event.data || {};
+    if (data && data.type === 'tasks_summary_update') {
+        // {count:number, sample:string}
+        idbSet('pendingCount', data.count);
+        idbSet('pendingSample', data.sample || '');
+    } else if (data && data.type === 'last_notify_update') {
+        idbSet('lastNotifyAt', Date.now());
     }
 });
 
-function registerNotification() {
+const MIN_NOTIFY_INTERVAL_MS = 5 * 60 * 60 * 1000; // align with periodic min interval (5h)
+
+async function maybeShowPendingReminder(trigger) {
+    try {
+        const permission = Notification.permission;
+        if (permission !== 'granted') return;
+
+        const last = parseInt((await idbGet('lastNotifyAt')) || '0', 10) || 0;
+        const now = Date.now();
+        if (now - last < MIN_NOTIFY_INTERVAL_MS) return;
+
+        const count = parseInt((await idbGet('pendingCount')) || '0', 10) || 0;
+        const sample = (await idbGet('pendingSample')) || '';
+        if (!count || count <= 0) return; // nothing pending, don't ping
+
+        const title = `📝 ${count} pending task${count === 1 ? '' : 's'}`;
+        const body = pickMotivationMessage(count, sample);
+
+        await self.registration.showNotification(title, {
+            tag: 'pending-tasks',
+            body,
+            badge: '/images/apple-icon-152x152.png',
+            icon: '/images/apple-icon-152x152.png',
+            actions: [
+                { action: 'open', title: 'Open App' },
+                { action: 'close', title: 'Later' },
+            ],
+            data: { url: '/' },
+            requireInteraction: false,
+            renotify: true,
+        });
+        await idbSet('lastNotifyAt', now);
+    } catch (err) {
+        console.warn('[SW] maybeShowPendingReminder error:', err);
+    }
+}
+
+// Periodic Background Sync handler
+self.addEventListener('periodicsync', async (event) => {
+    if (event.tag === 'notificationSync') {
+        event.waitUntil(maybeShowPendingReminder('periodic'));
+    }
+});
+
+// One-off Background Sync fallback
+self.addEventListener('sync', (event) => {
+    if (event.tag === 'notificationSync') {
+        event.waitUntil(maybeShowPendingReminder('sync'));
+    }
+});
+
+// Lightweight message-based motivation (utility reused for SW)
+function pickMotivationMessage(count, sample) {
     const now = new Date();
     const hour = now.getHours();
     const day = now.getDay();
-    const SUNDAY = 0;
-    const SATURDAY = 6;
-    const isWeekend = day === SUNDAY || day === SATURDAY;
+    const isWeekend = day === 0 || day === 6;
 
-    const messages = {
-        earlyMorning: isWeekend
-            ? [
-                "Weekend boost! Add something fun or relaxing to your list 🎉",
-                "Slow and steady — any small plans for today?",
-            ]
-            : [
-                "Rise and shine! What's the game plan today? ☀️",
-                "Good morning! Take 60 seconds to set your priorities 📝",
-                "Let's set a positive tone — update your tasks for today ✅"
-            ],
-        midMorning: isWeekend
-            ? [
-                "What’s your vibe today? Organize it in your list ✨",
-                "Quick note: add anything exciting to your plans?",
-            ]
-            : [
-                "How’s your day shaping up? Need to refocus?",
-                "Quick check-in: knock out those tasks 💪",
-                "Feeling productive? Your list is waiting!"
-            ],
-        afternoon: isWeekend
-            ? [
-                "Got something halfway done? Wrap it up like a pro 🎯",
-                "Afternoon feels — make sure your plans are on track 🧘",
-            ]
-            : [
-                "Keep the momentum going — review your task list ✅",
-                "Midday check-in: what’s still pending?",
-                "You’re crushing it! Just a few things left to tackle 💥"
-            ],
-        evening: isWeekend
-            ? [
-                "Evening already? A quick review won’t hurt 😌",
-                "Wanna get ahead for tomorrow? Start now 👣",
-            ]
-            : [
-                "Evening calm? Time to wrap up and reflect 🌇",
-                "Set yourself up for a smooth tomorrow 🎯",
-                "A quick list update before bed can do wonders 💤"
-            ],
-        night: [
-            "Before bed: anything to plan for tomorrow? 🌙",
-            "Tomorrow’s peace starts with tonight’s plan 🧠",
-            "Wind down with clarity — prep your next move 🛏️"
-        ]
-    };
+    const withCount = [
+        `You have ${count} task${count === 1 ? '' : 's'} waiting. Let's clear one now!`,
+        `${count} pending — small steps, big wins. Try: "${sample || 'your top task'}"`,
+        `${count} to go. Future you will thank you!`,
+        `Quick win time: ${count} pending. Pick one and crush it 💪`,
+    ];
 
-    function getRandomMessage(group) {
-        return group[Math.floor(Math.random() * group.length)];
-    }
+    const earlyMorning = isWeekend ? [
+        `Weekend boost! Got ${count} pending? Plan one and relax 🎉`,
+        `Slow and steady — ${count} to lightly tackle today.`,
+    ] : [
+        `Morning focus: ${count} pending. Start with "${sample || 'a 2‑minute task'}" ☀️`,
+        `Set the tone — ${count} pending. Choose your one big thing.`,
+    ];
 
-    let selectedGroup = messages.night; // default
+    const midMorning = isWeekend ? [
+        `What’s your vibe? ${count} pending — line up one easy win ✨`,
+        `Quick note: add or clear one — ${count} waiting.`,
+    ] : [
+        `How’s it going? ${count} pending. One step now beats ten later.`,
+        `Momentum check: ${count} left. Try: "${sample || 'the next smallest step'}"`,
+    ];
 
-    if (hour >= 6 && hour < 9) {
-        selectedGroup = messages.earlyMorning;
-    } else if (hour >= 9 && hour < 12) {
-        selectedGroup = messages.midMorning;
-    } else if (hour >= 12 && hour < 16) {
-        selectedGroup = messages.afternoon;
-    } else if (hour >= 16 && hour < 21) {
-        selectedGroup = messages.evening;
-    }
+    const afternoon = isWeekend ? [
+        `Halfway there? ${count} pending — wrap one up 🎯`,
+        `Afternoon flow — clear one and enjoy the rest 🧘`,
+    ] : [
+        `Midday nudge: ${count} pending. Chip away at one ✅`,
+        `You’re doing great. ${count} left — keep the streak!`,
+    ];
 
-    const message = getRandomMessage(selectedGroup);
+    const evening = isWeekend ? [
+        `Evening check: ${count} pending. Set up an easy win 😌`,
+        `Get ahead for tomorrow — clear one of ${count} 👣`,
+    ] : [
+        `Evening calm: ${count} pending. One last tidy-up 🌇`,
+        `Set tomorrow up right — reduce ${count} to ${Math.max(0, count - 1)} 🎯`,
+    ];
 
-    self.registration.showNotification('📝 Todo App Reminder', {
-        tag: 'alert',
-        body: message,
-        badge: '/images/apple-icon-152x152.png',
-        icon: '/images/apple-icon-152x152.png',
-        actions: [
-            {
-                action: 'open',
-                title: 'Open App',
-            },
-            {
-                action: 'close',
-                title: 'Maybe Later',
-            }
-        ],
-        data: {
-            url: '/',
-        },
-        requireInteraction: true,
-        vibrate: [200, 100, 200],
-        renotify: true,
-    });
+    const night = [
+        `Before bed: ${count} pending. Park the next step for tomorrow 🌙`,
+        `Wind down with clarity — ${count} left. Note one tiny action 🛏️`,
+    ];
+
+    let pool = withCount;
+    if (hour >= 6 && hour < 9) pool = earlyMorning;
+    else if (hour >= 9 && hour < 12) pool = midMorning;
+    else if (hour >= 12 && hour < 16) pool = afternoon;
+    else if (hour >= 16 && hour < 21) pool = evening;
+    else pool = night;
+
+    const all = withCount.concat(pool);
+    return all[Math.floor(Math.random() * all.length)];
 }
 

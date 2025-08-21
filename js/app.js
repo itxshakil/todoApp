@@ -18,6 +18,7 @@ addForm.addEventListener("submit", event => {
     const tasks = taskManager.addTask(new Task(input.value));
     listRenderer.display(tasks);
     showHideAdditionalButtons();
+    syncPendingSummaryWithSW();
     if (!isAppInstalled()) {
         if (tasks.length > 2) {
             showInstallSnackbar();
@@ -61,6 +62,7 @@ taskLists.addEventListener("click", event => {
             task.classList.remove("completed");
         }
         showHideAdditionalButtons();
+        syncPendingSummaryWithSW();
     }
     if (target.classList.contains("del-btn") && confirm("Are you sure to Delete?")) {
         const delBtnDiv = target.parentNode;
@@ -69,6 +71,7 @@ taskLists.addEventListener("click", event => {
         const tasks = taskManager.removeTask(index);
         listRenderer.display(tasks);
         showHideAdditionalButtons();
+        syncPendingSummaryWithSW();
     }
 });
 taskLists.addEventListener("change", () => {
@@ -99,6 +102,7 @@ markAsCompletedButton.addEventListener("click", () => {
     const tasks = taskManager.markAllAsCompleted();
     listRenderer.display(tasks);
     showHideAdditionalButtons();
+    syncPendingSummaryWithSW();
 });
 clearButton.addEventListener("click", () => {
     if (!window.confirm("Are you sure to clear all completed tasks?")) {
@@ -107,6 +111,7 @@ clearButton.addEventListener("click", () => {
     const tasks = taskManager.clearCompleted();
     listRenderer.display(tasks);
     showHideAdditionalButtons();
+    syncPendingSummaryWithSW();
 });
 function showHideAdditionalButtons() {
     const totalTasks = taskManager.getTasksCount();
@@ -122,6 +127,7 @@ function showHideAdditionalButtons() {
 document.addEventListener("DOMContentLoaded", () => {
     listRenderer.display(taskManager.getTodos());
     showHideAdditionalButtons();
+    syncPendingSummaryWithSW();
     if ('Notification' in window && Notification.permission === 'granted') {
         startPendingTaskReminders();
     }
@@ -263,7 +269,10 @@ async function showPendingTasksNotification() {
         } else {
             new Notification(title, options);
         }
-        localStorage.setItem('lastTaskNotifyAt', String(Date.now()));
+        const now = Date.now();
+        localStorage.setItem('lastTaskNotifyAt', String(now));
+        // Update SW throttle state too, so background reminders don't duplicate immediately
+        postToActiveSW({ type: 'last_notify_update' });
         return true;
     } catch (e) {
         console.warn('Notification failed:', e);
@@ -325,6 +334,26 @@ document.addEventListener('visibilitychange', () => {
     }
 });
 
+function postToActiveSW(message) {
+    if (!('serviceWorker' in navigator)) return;
+    // Prefer controller (page is controlled by SW)
+    if (navigator.serviceWorker.controller) {
+        navigator.serviceWorker.controller.postMessage(message);
+        return;
+    }
+    // Fallback to registration.active
+    navigator.serviceWorker.ready.then(reg => {
+        if (reg.active) reg.active.postMessage(message);
+    });
+}
+
+function syncPendingSummaryWithSW() {
+    try {
+        const { count, sample } = getPendingTasksInfo();
+        postToActiveSW({ type: 'tasks_summary_update', count, sample });
+    } catch {}
+}
+
 window.enableNotifications = async () => {
     const reg = await navigator.serviceWorker.getRegistration();
     if (!reg) {
@@ -346,5 +375,7 @@ window.enableNotifications = async () => {
     }
     // Start reminders after permission is granted
     startPendingTaskReminders();
+    // Also push current pending summary to SW
+    syncPendingSummaryWithSW();
 };
 //# sourceMappingURL=app.js.map
