@@ -122,6 +122,9 @@ function showHideAdditionalButtons() {
 document.addEventListener("DOMContentLoaded", () => {
     listRenderer.display(taskManager.getTodos());
     showHideAdditionalButtons();
+    if ('Notification' in window && Notification.permission === 'granted') {
+        startPendingTaskReminders();
+    }
 });
 function showInstallSnackbar() {
     if (deferredPrompt) {
@@ -155,6 +158,173 @@ window.dismissSnackbar = () => {
     const activeSnackbar = document.querySelector('.snackbar.show');
     activeSnackbar?.classList.remove('show');
 };
+function getPendingTasksInfo() {
+    const todos = taskManager.getTodos();
+    const pending = todos.filter(t => !t.completed);
+    const count = pending.length;
+    const sample = pending[0]?.task || '';
+    return { count, sample };
+}
+
+function pickMotivationMessage(count, sample) {
+    const now = new Date();
+    const hour = now.getHours();
+    const day = now.getDay();
+    const isWeekend = day === 0 || day === 6;
+
+    const withCount = [
+        `You have ${count} task${count === 1 ? '' : 's'} waiting. Let's clear one now!`,
+        `${count} pending — small steps, big wins. Try: "${sample || 'your top task'}"`,
+        `${count} to go. Future you will thank you!`,
+        `Quick win time: ${count} pending. Pick one and crush it 💪`,
+    ];
+
+    const earlyMorning = isWeekend
+        ? [
+            `Weekend boost! Got ${count} pending? Plan one and relax 🎉`,
+            `Slow and steady — ${count} to lightly tackle today.`,
+        ]
+        : [
+            `Morning focus: ${count} pending. Start with "${sample || 'a 2‑minute task'}" ☀️`,
+            `Set the tone — ${count} pending. Choose your one big thing.`,
+        ];
+
+    const midMorning = isWeekend
+        ? [
+            `What’s your vibe? ${count} pending — line up one easy win ✨`,
+            `Quick note: add or clear one — ${count} waiting.`,
+        ]
+        : [
+            `How’s it going? ${count} pending. One step now beats ten later.`,
+            `Momentum check: ${count} left. Try: "${sample || 'the next smallest step'}"`,
+        ];
+
+    const afternoon = isWeekend
+        ? [
+            `Halfway there? ${count} pending — wrap one up 🎯`,
+            `Afternoon flow — clear one and enjoy the rest 🧘`,
+        ]
+        : [
+            `Midday nudge: ${count} pending. Chip away at one ✅`,
+            `You’re doing great. ${count} left — keep the streak!`,
+        ];
+
+    const evening = isWeekend
+        ? [
+            `Evening check: ${count} pending. Set up an easy win 😌`,
+            `Get ahead for tomorrow — clear one of ${count} 👣`,
+        ]
+        : [
+            `Evening calm: ${count} pending. One last tidy-up 🌇`,
+            `Set tomorrow up right — reduce ${count} to ${Math.max(0, count - 1)} 🎯`,
+        ];
+
+    const night = [
+        `Before bed: ${count} pending. Park the next step for tomorrow 🌙`,
+        `Wind down with clarity — ${count} left. Note one tiny action 🛏️`,
+    ];
+
+    let pool = withCount;
+    if (hour >= 6 && hour < 9) pool = earlyMorning;
+    else if (hour >= 9 && hour < 12) pool = midMorning;
+    else if (hour >= 12 && hour < 16) pool = afternoon;
+    else if (hour >= 16 && hour < 21) pool = evening;
+    else pool = night;
+
+    const all = withCount.concat(pool);
+    return all[Math.floor(Math.random() * all.length)];
+}
+
+async function showPendingTasksNotification() {
+    const { count, sample } = getPendingTasksInfo();
+    if (count === 0) return false;
+    if (!('Notification' in window) || Notification.permission !== 'granted') return false;
+
+    const title = `📝 ${count} pending task${count === 1 ? '' : 's'}`;
+    const body = pickMotivationMessage(count, sample);
+    const options = {
+        tag: 'pending-tasks',
+        body,
+        badge: '/images/apple-icon-152x152.png',
+        icon: '/images/apple-icon-152x152.png',
+        requireInteraction: false,
+        renotify: true,
+        data: { url: '/' },
+        actions: [
+            { action: 'open', title: 'Open App' },
+            { action: 'close', title: 'Later' },
+        ],
+    };
+
+    try {
+        const reg = await navigator.serviceWorker.getRegistration();
+        if (reg && 'showNotification' in reg) {
+            await reg.showNotification(title, options);
+        } else {
+            new Notification(title, options);
+        }
+        localStorage.setItem('lastTaskNotifyAt', String(Date.now()));
+        return true;
+    } catch (e) {
+        console.warn('Notification failed:', e);
+        return false;
+    }
+}
+
+function shouldNotify(now = Date.now()) {
+    try {
+        const last = parseInt(localStorage.getItem('lastTaskNotifyAt') || '0', 10) || 0;
+        const minInterval = 60 * 60 * 1000; // 60 minutes
+        return now - last >= minInterval;
+    } catch {
+        return true;
+    }
+}
+
+let reminderTimerId = null;
+function startPendingTaskReminders() {
+    if (!('Notification' in window)) return;
+    if (Notification.permission !== 'granted') return;
+
+    // Clear any existing interval
+    if (reminderTimerId) {
+        clearInterval(reminderTimerId);
+        reminderTimerId = null;
+    }
+
+    const scheduleNext = () => {
+        // Add ±15 min jitter around 60 min
+        const base = 60 * 60 * 1000;
+        const jitter = Math.floor((Math.random() - 0.5) * 30 * 60 * 1000); // ±15 min
+        const delay = Math.max(15 * 60 * 1000, base + jitter); // at least 15 min
+        reminderTimerId = setTimeout(async () => {
+            // Avoid notifying while user is actively viewing the page
+            if (document.visibilityState !== 'visible' && shouldNotify()) {
+                await showPendingTasksNotification();
+            }
+            scheduleNext();
+        }, delay);
+    };
+
+    // If due already, show soon; otherwise schedule with jitter
+    if (shouldNotify()) {
+        setTimeout(() => {
+            if (document.visibilityState !== 'visible') {
+                showPendingTasksNotification();
+            }
+        }, 10 * 1000);
+    }
+
+    scheduleNext();
+}
+
+document.addEventListener('visibilitychange', () => {
+    // When user leaves the tab, keep the timer; when they return, avoid immediate spam
+    if (document.visibilityState === 'visible') {
+        // No action needed here; throttle handled in shouldNotify()
+    }
+});
+
 window.enableNotifications = async () => {
     const reg = await navigator.serviceWorker.getRegistration();
     if (!reg) {
@@ -166,11 +336,15 @@ window.enableNotifications = async () => {
             const permission = await Notification.requestPermission();
             if (permission !== 'granted') {
                 alert('You need to allow push notifications.');
+                return;
             }
         }
         catch (e) {
             console.log(e);
+            return;
         }
     }
+    // Start reminders after permission is granted
+    startPendingTaskReminders();
 };
 //# sourceMappingURL=app.js.map
